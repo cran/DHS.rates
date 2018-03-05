@@ -1,0 +1,23 @@
+Package: DHS.rates
+Type: Package
+Title: Calculate Key DHS Indicators
+Version: 0.1.0
+Date: 2018-03-01
+Author: Mahmoud Elkasabi
+Maintainer: Mahmoud Elkasabi <mahmoud.elkasabi@icf.com>
+Description: Calculates key indicators such as fertility rates (Total Fertility Rate (TFR), General Fertility Rate (GFR), and Age Specific Fertility Rate (ASFR)) using Demographic and Health Survey (DHS) women/individual data.
+ In addition to the indicators, the 'DHS.rates' package estimates precision indicators such as Standard Error (SE), Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI).
+ The package is developed according to the DHS methodology of calculating the fertility indicators  outlined in the "DHS Guide to Statistics" (Rutstein and Guillermo 2006,
+    <http://dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_29Oct2012_DHSG1.pdf>) 
+    and the DHS methodology of estimating the precision indicators outlined in the "DHS Sampling and Household Listing Manual" (ICF International 2012, 
+    <https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf>).
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+Depends: R(>= 3.4.0)
+Imports: reshape, survey, stats
+RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2018-03-05 19:47:41 UTC; 31672
+Repository: CRAN
+Date/Publication: 2018-03-05 20:22:21 UTC
