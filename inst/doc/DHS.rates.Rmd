@@ -1,0 +1,112 @@
+---
+title: "Introduction to the DHS.rates package"
+author: "Mahmoud Elkasabi, Ph.D."
+date: "`r Sys.Date()`"
+output:
+  rmarkdown::html_vignette:
+  toc: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to the DHS.rates package}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+# Overview
+
+The package was developed to calculate key indicators based on the Demographic and Health Survey data, especially the IR individual (women's) recode files. 
+In addition to calculating the indicators on the national level, the DHS.rates allows for domain level indicators.
+
+In addition to the indicators, the 'DHS.rates' package estimates precision indicators such as Standard Error (SE), Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI).
+
+The package is developed according to the DHS methodology of calculating the DHS indicators outlined in the "DHS Guide to Statistics" (Rutstein and Rojas 2006,
+    <http://dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_29Oct2012_DHSG1.pdf>) 
+    and the DHS methodology of estimating the precision indicators outlined in the "DHS Sampling and Household Listing Manual" (ICF International 2012, 
+    <https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf>).
+ 
+# Datasets
+First you need to install the package from the CRAN as follows:
+
+```{r, eval = FALSE }
+install.packages("DHS.rates")
+```
+
+
+Use your own DHS IR individual (women's) recode files downloaded from <https://dhsprogram.com/data/available-datasets.cfm>
+
+or call any of the following datasets provided with the package:
+
+1. The "AWIR70" for all women 15-49: 
+   an artificial dataset of a DHS survey where all women age 15-49 were eligible for the survey. 
+
+2. The "EMIR70" for ever-married women 15-49
+   an artificial dataset of a DHS survey where only ever-married women age 15-49 were eligible for the survey. In  ever-married women surveys, inflation factors called _All-women factors_ have to be considered to produce indicators for all women.   
+
+```{r }
+library(DHS.rates)
+data("AWIR70")
+data("EMIR70")
+```
+
+
+# The _fert_ function
+
+The _fert_ function calculates the following fertility indicators:
+
+1. Total Fertility Rate (TFR)
+2. General Fertility Rate (GFR) 
+3. Age Specific Fertility Rate (ASFR).
+
+## Examples
+
+### Total Fertility Rate (TFR):
+
+_fert_ can calculate Total Fertility Rate (TFR) based on all women AWIR70 data
+
+```{r }
+(TFR <- fert(AWIR70,Indicator="tfr"))
+```
+
+#### Jackknife SE for TFR
+
+in the previous example you can use the _JK_ argument to estimate SE, DEFT, RSE and CI.
+the SE is based on Jackknife variance estimation
+
+```{r }
+(TFR <- fert(AWIR70,Indicator="tfr",JK="Yes"))
+```
+
+### General Fertility Rate (GFR)
+
+_fert_ can calculate GFR and estimate SE, DEFT, RSE and CI based on ever-married women EMIR70 data
+
+For ever-married samples, you need to call the _EverMW_ argument and use _AWFact_ to define the variable name of the All-women factor
+
+```{r }
+(GFR <- fert(EMIR70,Indicator="gfr",EverMW="YES",AWFact="awfactt"))
+```
+
+### Age Specific Fertility Rates (ASFR)
+
+_fert_ can calculate ASFR and estimate SE, DEFT, RSE and CI based on all women AWIR70 data
+
+```{r }
+(ASFR <- fert(AWIR70,Indicator="asfr"))
+```
+
+
+### Sub-national indicators 
+
+you can calculate sub-national TFR by using the "Class" argument.
+
+```{r }
+(TFR <- fert(AWIR70,Indicator="tfr",JK="Yes", Class="v025"))
+```
+
+### Sub-national indicators for Ever-married samples 
+
+When _Class_ is used, you might need to use the relevent _AWFact_ as below; "awfactu" is used to produce indicators on the urban/rural level, "v025".
+
+```{r }
+(GFR <- fert(EMIR70,Indicator="gfr", EverMW="YES",AWFact="awfactu", Class="v025"))
+```
+

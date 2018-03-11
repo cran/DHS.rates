@@ -51,7 +51,7 @@ TFR <- function (Data.Name, JK=NULL,EverMW=NULL,AWFact=NULL,Period=NULL,Class=NU
       LCI= TFR - (2*SE)
       UCI= TFR + (2*SE)
       RESULTS <- matrix(0, nrow = 1, ncol = 9)
-      dimnames(RESULTS) <- list(NULL, c("TFR","SE", "N", "WN", "DEFT","RSE", "LCI", "UCI", "Itirations") )
+      dimnames(RESULTS) <- list(NULL, c("TFR","SE", "N", "WN", "DEFT","RSE", "LCI", "UCI", "iterations") )
       RESULTS[1,] <- c(TFR,SE,round(N,0),round(WN,0),TFR_DEFT, RSE,LCI,UCI,PSU)
       RESULTS <- round(RESULTS,3)
       list(RESULTS)
@@ -71,7 +71,7 @@ TFR <- function (Data.Name, JK=NULL,EverMW=NULL,AWFact=NULL,Period=NULL,Class=NU
     Dat <- merge(BirthEx,Data.class,by="ID", all.x=TRUE)
 
     RESULTS <- matrix(0, nrow = max(Dat$DomID), ncol = 10)
-    dimnames(RESULTS) <- list(NULL, c("Class","TFR","SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "Itirations") )
+    dimnames(RESULTS) <- list(NULL, c("Class","TFR","SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations") )
     RESULTtfr <- matrix(0, nrow = max(Dat$DomID), ncol = 4)
     dimnames(RESULTtfr) <- list(NULL, c("Class","TFR","N", "WN") )
 
