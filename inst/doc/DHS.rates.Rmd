@@ -13,8 +13,7 @@ vignette: >
 
 # Overview
 
-The package was developed to calculate key indicators based on the Demographic and Health Survey data, especially the IR individual (women's) recode files. 
-In addition to calculating the indicators on the national level, the DHS.rates allows for domain level indicators.
+The package was developed to calculate key indicators based on the Demographic and Health Survey data. In addition to calculating the indicators on the national level, the DHS.rates allows for domain level indicators.
 
 In addition to the indicators, the 'DHS.rates' package estimates precision indicators such as Standard Error (SE), Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI).
 
@@ -31,22 +30,35 @@ install.packages("DHS.rates")
 ```
 
 
-Use your own DHS IR individual (women's) recode files downloaded from <https://dhsprogram.com/data/available-datasets.cfm>
-
-or call any of the following datasets provided with the package:
+Call any of the following datasets provided with the package:
 
 1. The "AWIR70" for all women 15-49: 
    an artificial dataset of a DHS survey where all women age 15-49 were eligible for the survey. 
 
 2. The "EMIR70" for ever-married women 15-49
-   an artificial dataset of a DHS survey where only ever-married women age 15-49 were eligible for the survey. In  ever-married women surveys, inflation factors called _All-women factors_ have to be considered to produce indicators for all women.   
+   an artificial dataset of a DHS survey where only ever-married women age 15-49 were eligible for the survey. In  ever-married women surveys, inflation factors called _All-women factors_ have to be considered to produce indicators for all women.
+   
+3. The "ADBR70" for all Births: 
+   an artificial dataset of a DHS survey that include all birth for interviewed women age 15-49. 
 
 ```{r }
 library(DHS.rates)
 data("AWIR70")
 data("EMIR70")
+data("ADBR70")
 ```
 
+
+You can use your own DHS IR individual (women's) recode files or BR births recode files downloaded from <https://dhsprogram.com/data/available-datasets.cfm>
+
+in this case you will need to install and use the "haven" library to read the data. In the example below, I'm reading a Stata file:
+
+```{r, eval=FALSE }
+library(haven)
+XXIR70 <- read_dta("C:\\Users\\.............................\\XXIR7HFL.DTA")
+XXIR70 <- as.data.frame(XXIR70)
+
+```
 
 # The _fert_ function
 
@@ -55,6 +67,8 @@ The _fert_ function calculates the following fertility indicators:
 1. Total Fertility Rate (TFR)
 2. General Fertility Rate (GFR) 
 3. Age Specific Fertility Rate (ASFR).
+
+The _fert_ function uses the DHS IR individual (women's) recode files
 
 ## Examples
 
@@ -110,3 +124,41 @@ When _Class_ is used, you might need to use the relevent _AWFact_ as below; "awf
 (GFR <- fert(EMIR70,Indicator="gfr", EverMW="YES",AWFact="awfactu", Class="v025"))
 ```
 
+# The _chmort_ function
+
+The _chmort_ function calculates the following childhood mortality indicators:
+
+1. Neonatal Mortality Rate (NNMR)
+2. Post-neonatal Mortality Rate (PNNMR)
+3. Infant Mortality Rate (IMR)
+4. Child Mortality Rate (CMR)
+5. Under-5 Mortality Rate (U5MR).
+
+The _chmort_ function uses the DHS BR birth recode files
+
+## Examples
+
+### childhood mortality rates:
+
+_chmort_ can calculate five-year childhood mortality rates based on birth ADBR70 data
+
+```{r }
+(chmort(ADBR70))
+```
+
+#### Jackknife SE for childhood mortality rates
+
+in the previous example you can use the _JK_ argument to estimate SE, RSE and CI.
+the SE is based on Jackknife variance estimation
+
+```{r }
+(chmort(ADBR70,JK="Yes"))
+```
+
+The study period in the previous examples are the default 5 years previous to the survey. The ten-year children mortality rates can be calculated using the _Period_ argument as follows
+
+```{r }
+(chmort(ADBR70,Period = 10))
+```
+
+Similar to _fert_, in _chmort_ the _Class_ can be used to produce domain level indicators.  

@@ -2,7 +2,7 @@
 # Mahmoud Elkasabi
 # 03/02/2018
 
-GFR <- function (Data.Name, EverMW=NULL,AWFact=NULL,Period=NULL,Class=NULL)
+GFR <- function (Data.Name, EverMW=NULL,AWFact=NULL,PeriodEnd=NULL,Period=NULL,Class=NULL)
 {
   Data.Name <- Data.Name[!Data.Name$v005==0,]
   Data.Name$ID <- seq.int(nrow(Data.Name))
@@ -11,7 +11,7 @@ GFR <- function (Data.Name, EverMW=NULL,AWFact=NULL,Period=NULL,Class=NULL)
   if (is.null(Class)){
 
     if (is.null(EverMW)){Data.Name$allwoment = 1} else {Data.Name$allwoment = Data.Name$awfactt/100}
-    BirthEx <- DataPrepare(Data.Name,Period)
+    BirthEx <- DataPrepare(Data.Name,PeriodEnd,Period)
     BirthEx$exposureg = BirthEx$allwoment*BirthEx$exposureg
 
     dstrat<-survey::svydesign(id=~v021,strata=~v022, weights=~rweight, data=BirthEx)
@@ -32,11 +32,11 @@ GFR <- function (Data.Name, EverMW=NULL,AWFact=NULL,Period=NULL,Class=NULL)
   }
   #######For Class Indicators; #################################################################################################
   else{
-
+    Data.Name[[Class]] <- haven::as_factor(Data.Name[[Class]])
     Data.Name$DomID  <- c(as.factor(Data.Name[[Class]]))
 
     if (is.null(EverMW)){Data.Name$allwoment = 1} else if (is.null(AWFact)){Data.Name$allwoment = Data.Name$awfactt/100} else {Data.Name$allwoment = Data.Name[[AWFact]]/100}
-    BirthEx <- DataPrepare(Data.Name,Period)
+    BirthEx <- DataPrepare(Data.Name,PeriodEnd,Period)
     BirthEx$exposureg = BirthEx$allwoment*BirthEx$exposureg
 
     Data.class <- Data.Name[,c("ID","DomID",Class)]

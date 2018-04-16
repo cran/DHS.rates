@@ -2,7 +2,7 @@
 # Mahmoud Elkasabi
 # 03/02/2018
 
-DataPrepare <- function(Dat,Period=NULL)
+DataPrepare <- function(Dat,PeriodEnd=NULL,Period=NULL)
 {
   Dat$rweight = Dat$v005/1000000
 
@@ -13,10 +13,11 @@ DataPrepare <- function(Dat,Period=NULL)
   def$variable <- NULL
 
   # 2. Briths to women 15-49 during the reference period  ###########################################################
+  if (is.null(PeriodEnd)){def$periodend = 0} else {def$periodend = PeriodEnd * 12}
   if (is.null(Period)){def$period = 36} else {def$period = Period * 12}
   def$age5 = as.integer((def$B3 - def$v011)/60) - 3
   def$birth <- 0
-  def$birth[def$v008 - def$B3 > 0 & def$v008 - def$B3 <= def$period & def$age5 >= 0] <- 1
+  def$birth[(def$v008 - def$periodend) - def$B3 > 0 & (def$v008 - def$periodend) - def$B3 <= def$period & def$age5 >= 0] <- 1
   def$B3 <- NULL
   def$exposure = 0
   def$exposureg = 0
@@ -26,8 +27,9 @@ DataPrepare <- function(Dat,Period=NULL)
   newdata <- c("ID","v021","v005","v008","v011","v022","v025","rweight","allwoment")
   def2 <- Dat[newdata]
 
+  if (is.null(PeriodEnd)){def2$periodend = 0} else {def2$periodend = PeriodEnd * 12}
   if (is.null(Period)){def2$period = 36} else {def2$period = Period * 12}
-  def2$agem   = def2$v008 - def2$v011 - 1 #age at the end of the period
+  def2$agem   = (def2$v008 - def2$periodend) - def2$v011 - 1 #age at the end of the period
   def2$age5   = as.integer(def2$agem/60) #age group at the end of the period
   def2$higexp = def2$agem - (def2$age5 * 60) + 1  #Exposure (number of months) in current age group
   def2$higexp <- ifelse(def2$higexp >= def2$period, def2$period, def2$higexp)

@@ -5,8 +5,8 @@
 \title{Calculates fertility indicators based on the Demographic and Health Surveys (DHS).}
 \usage{
 fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
-  Weight = NULL, EverMW = NULL, AWFact = NULL, Period = NULL,
-  Class = NULL)
+  Weight = NULL, EverMW = NULL, AWFact = NULL, PeriodEnd = NULL,
+  Period = NULL, Class = NULL)
 }
 \arguments{
 \item{Data.Name}{DHS data women files (IR).}
@@ -24,6 +24,8 @@ fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
 \item{EverMW}{"Yes" for ever-married women data.}
 
 \item{AWFact}{The all-women-factor variable name; only for ever-married women data.}
+
+\item{PeriodEnd}{The end of the exposure period; default is the day of the interview.}
 
 \item{Period}{The study period for fertility; default is 3 years.}
 

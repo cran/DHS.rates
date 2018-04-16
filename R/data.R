@@ -73,4 +73,21 @@
 #' }
 #' @source \url{https://dhsprogram.com/data/available-datasets.cfm}
 "EMIR70"
+#' DHS Births dataset
+#'
+#' Example for a DHS data of births.
+#'
+#'
+#' @format A data frame with 1000 rows and 7 variables:
+#' \describe{
+#'   \item{v005}{Women individual sample weight}
+#'   \item{v008}{Date of interview (CMC)}
+#'   \item{v021}{Primary sampling unit}
+#'   \item{v022}{Sample strata for sampling error}
+#'   \item{v025}{Type of residence urban/rural}
+#'   \item{b3}{Date of birth (CMC)}
+#'   \item{b7}{Date of death (CMC)}
+#' }
+#' @source \url{https://dhsprogram.com/data/available-datasets.cfm}
+"ADBR70"
 

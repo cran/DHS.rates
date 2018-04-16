@@ -23,6 +23,8 @@
 #'
 #' @param AWFact The all-women-factor variable name; only for ever-married women data.
 #'
+#' @param PeriodEnd The end of the exposure period; default is the day of the interview.
+#'
 #' @param Period The study period for fertility; default is 3 years.
 #'
 #' @param Class Allow for domain level indicators.
@@ -61,7 +63,7 @@
 #' @return Fertility indicators (TFR, GFR or ASFR), and precision indicators (SE, DEFT, RSE and CI).
 #'
 #' @export
-fert <- function (Data.Name, Indicator, JK=NULL,Strata=NULL,Cluster=NULL,Weight=NULL,EverMW=NULL,AWFact=NULL,Period=NULL,Class=NULL)
+fert <- function (Data.Name, Indicator, JK=NULL,Strata=NULL,Cluster=NULL,Weight=NULL,EverMW=NULL,AWFact=NULL,PeriodEnd=NULL,Period=NULL,Class=NULL)
 {
   if (!Indicator %in% c("tfr", "gfr", "asfr")) stop("Please specify a valid fertility indicator, such as tfr, gfr, or asfr")
 
@@ -83,26 +85,30 @@ fert <- function (Data.Name, Indicator, JK=NULL,Strata=NULL,Cluster=NULL,Weight=
     names(Data.Name)[names(Data.Name)==c("weight")] <- c("v005")
   }
 
-  if (!("v021" %in% names(Data.Name))) {message("Error: v021 is missing")}
-  if (!("v005" %in% names(Data.Name))) {message("Error: v005 is missing")}
-  if (!("v008" %in% names(Data.Name))) {message("Error: v008 is missing")}
-  if (!("v011" %in% names(Data.Name))) {message("Error: v011 is missing")}
-  if (!("v022" %in% names(Data.Name))) {message("Error: v022 is missing")}
+  if (!("v021" %in% names(Data.Name))) stop({message("Error: v021 is missing")})
+  if (!("v005" %in% names(Data.Name))) stop({message("Error: v005 is missing")})
+  if (!("v008" %in% names(Data.Name))) stop({message("Error: v008 is missing")})
+  if (!("v011" %in% names(Data.Name))) stop({message("Error: v011 is missing")})
+  if (!("v022" %in% names(Data.Name))) stop({message("Error: v022 is missing")})
 
     else{
 
-    if (("TRUE" %in% (!(paste("b3_0", 1:9, sep="") %in% names(Data.Name)))) | ("TRUE" %in% (!(paste("b3_", 10:20, sep="") %in% names(Data.Name))))) {message("Warning Message: Check the Birth History variables b3_01:b3_20")}
+    if (("TRUE" %in% (!(paste("b3_0", 1:9, sep="") %in% names(Data.Name)))) | ("TRUE" %in% (!(paste("b3_", 10:20, sep="") %in% names(Data.Name))))) stop({message("Error: Check the Birth History variables b3_01:b3_20")})
   }
 
+  Data.Name <- as.data.frame(Data.Name)
+  options(survey.lonely.psu="adjust")
+  
+  
   if (Indicator == "tfr"){
-    TFR(Data.Name, JK,EverMW,AWFact,Period,Class)
+    TFR(Data.Name, JK,EverMW,AWFact,PeriodEnd,Period,Class)
   }
   else if (Indicator == "gfr"){
-    GFR(Data.Name, EverMW,AWFact,Period,Class)
+    GFR(Data.Name, EverMW,AWFact,PeriodEnd,Period,Class)
 
   }
   else if (Indicator == "asfr"){
-    ASFR(Data.Name, EverMW,AWFact,Period,Class)
+    ASFR(Data.Name, EverMW,AWFact,PeriodEnd,Period,Class)
 
   }
 }
