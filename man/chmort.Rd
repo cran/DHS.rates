@@ -5,7 +5,9 @@
 \title{Calculates childhood mortality rates based on the Demographic and Health Surveys (DHS).}
 \usage{
 chmort(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL,
-  Weight = NULL, PeriodEnd = NULL, Period = NULL, Class = NULL)
+  Weight = NULL, Year_of_survey = NULL, Date_of_interview = NULL,
+  Date_of_birth = NULL, Date_of_death = NULL, PeriodEnd = NULL,
+  Period = NULL, Class = NULL)
 }
 \arguments{
 \item{Data.Name}{DHS data birth files (BR).}
@@ -18,7 +20,15 @@ chmort(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL,
 
 \item{Weight}{The sampling weight variable name if other than "v005".}
 
-\item{PeriodEnd}{The end of the exposure period; default is the day of the interview.}
+\item{Year_of_survey}{Year of survey variable if other than "v007".}
+
+\item{Date_of_interview}{Date of Interview variable if other than "v008".}
+
+\item{Date_of_birth}{Child date of birth variable if other than "b3".}
+
+\item{Date_of_death}{Child date of death variable if other than "b7".}
+
+\item{PeriodEnd}{The end year of the exposure period; default is the year of the survey.}
 
 \item{Period}{The study period for mortality; default is 5 years.}
 
@@ -40,7 +50,7 @@ the Relative Standard Error (RSE) and the Confidence Interval (CI).
 data("ADBR70")
 chmort(
  ADBR70,
- JK="Yes"
+ JK = "Yes"
 )
 
 # Calculate ten-year children mortality rates based on ADBR70 data
@@ -48,16 +58,16 @@ chmort(
 data("ADBR70")
 chmort(
  ADBR70,
- JK="Yes",
+ JK = "Yes",
  Period = 10
 )
 
-# The exposure period ends 3 years before the survey
+# The exposure period ends in 2011
 
 data("ADBR70")
 chmort(
  ADBR70,
- PeriodEnd = 3
+ PeriodEnd = 2011
 )
 
 }

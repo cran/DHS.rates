@@ -4,9 +4,10 @@
 \name{EMIR70}
 \alias{EMIR70}
 \title{DHS Ever-Married Women dataset}
-\format{A data frame with 3014 rows and 29 variables:
+\format{A data frame with 3014 rows and 30 variables:
 \describe{
   \item{v005}{Women individual sample weight}
+  \item{v007}{Year of interview}
   \item{v008}{Date of interview (CMC)}
   \item{v011}{Date of birth (CMC)}
   \item{v021}{Primary sampling unit}

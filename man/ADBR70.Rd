@@ -4,9 +4,10 @@
 \name{ADBR70}
 \alias{ADBR70}
 \title{DHS Births dataset}
-\format{A data frame with 1000 rows and 7 variables:
+\format{A data frame with 2753 rows and 8 variables:
 \describe{
   \item{v005}{Women individual sample weight}
+  \item{v007}{Year of interview}
   \item{v008}{Date of interview (CMC)}
   \item{v021}{Primary sampling unit}
   \item{v022}{Sample strata for sampling error}

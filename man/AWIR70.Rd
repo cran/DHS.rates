@@ -4,9 +4,10 @@
 \name{AWIR70}
 \alias{AWIR70}
 \title{DHS All Women dataset}
-\format{A data frame with 3024 rows and 26 variables:
+\format{A data frame with 3024 rows and 27 variables:
 \describe{
   \item{v005}{Women individual sample weight}
+  \item{v007}{Year of interview}
   \item{v008}{Date of interview (CMC)}
   \item{v011}{Date of birth (CMC)}
   \item{v021}{Primary sampling unit}

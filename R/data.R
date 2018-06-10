@@ -3,9 +3,10 @@
 #' Example for a DHS data based on all women.
 #'
 #'
-#' @format A data frame with 3024 rows and 26 variables:
+#' @format A data frame with 3024 rows and 27 variables:
 #' \describe{
 #'   \item{v005}{Women individual sample weight}
+#'   \item{v007}{Year of interview}
 #'   \item{v008}{Date of interview (CMC)}
 #'   \item{v011}{Date of birth (CMC)}
 #'   \item{v021}{Primary sampling unit}
@@ -39,9 +40,10 @@
 #' Example for a DHS data based on ever-married women.
 #'
 #'
-#' @format A data frame with 3014 rows and 29 variables:
+#' @format A data frame with 3014 rows and 30 variables:
 #' \describe{
 #'   \item{v005}{Women individual sample weight}
+#'   \item{v007}{Year of interview}
 #'   \item{v008}{Date of interview (CMC)}
 #'   \item{v011}{Date of birth (CMC)}
 #'   \item{v021}{Primary sampling unit}
@@ -78,9 +80,10 @@
 #' Example for a DHS data of births.
 #'
 #'
-#' @format A data frame with 1000 rows and 7 variables:
+#' @format A data frame with 2753 rows and 8 variables:
 #' \describe{
 #'   \item{v005}{Women individual sample weight}
+#'   \item{v007}{Year of interview}
 #'   \item{v008}{Date of interview (CMC)}
 #'   \item{v021}{Primary sampling unit}
 #'   \item{v022}{Sample strata for sampling error}

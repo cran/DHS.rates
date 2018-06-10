@@ -5,7 +5,8 @@
 \title{Calculates fertility indicators based on the Demographic and Health Surveys (DHS).}
 \usage{
 fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
-  Weight = NULL, EverMW = NULL, AWFact = NULL, PeriodEnd = NULL,
+  Weight = NULL, Year_of_survey = NULL, Date_of_interview = NULL,
+  Woman_DOB = NULL, EverMW = NULL, AWFact = NULL, PeriodEnd = NULL,
   Period = NULL, Class = NULL)
 }
 \arguments{
@@ -21,11 +22,17 @@ fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
 
 \item{Weight}{The sampling weight variable name if other than "v005".}
 
+\item{Year_of_survey}{Year of survey variable if other than "v007".}
+
+\item{Date_of_interview}{Date of Interview variable if other than "v008".}
+
+\item{Woman_DOB}{Woman date of birth variable if other than "v011".}
+
 \item{EverMW}{"Yes" for ever-married women data.}
 
 \item{AWFact}{The all-women-factor variable name; only for ever-married women data.}
 
-\item{PeriodEnd}{The end of the exposure period; default is the day of the interview.}
+\item{PeriodEnd}{The end year of the exposure period; default is the year of the survey.}
 
 \item{Period}{The study period for fertility; default is 3 years.}
 
@@ -46,8 +53,8 @@ the Design Effect (DEFT), the Relative Standard Error (RSE) and the Confidence I
 data("AWIR70")
 Total_Fertility_Rate <- fert(
  AWIR70,
- Indicator="tfr",
- JK="Yes"
+ Indicator = "tfr",
+ JK = "Yes"
 )
 
 # Calculate GFR and estimate SE based on ever-married women EMIR70 data
@@ -55,9 +62,9 @@ Total_Fertility_Rate <- fert(
 data("EMIR70")
 General_Fertility_Rate <- fert(
  EMIR70,
- Indicator="gfr",
- EverMW="YES",
- AWFact="awfactt"
+ Indicator = "gfr",
+ EverMW = "YES",
+ AWFact = "awfactt"
 )
 
 # Calculate Urban/Rural level ASFR and estimate SE based on all women AWIR70 data
@@ -65,8 +72,8 @@ General_Fertility_Rate <- fert(
 data("AWIR70")
 Age_Specific_Fertility_Rate <- fert(
  AWIR70,
- Indicator="asfr",
- Class="v025"
+ Indicator = "asfr",
+ Class = "v025"
 )
 
 }
