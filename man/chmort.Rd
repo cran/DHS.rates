@@ -41,8 +41,8 @@ Childhood mortality rates (NNMR, PNNMR, IMR, CMR and U5MR), and precision indica
 \code{chmort} returns childhood mortality rates such as Neonatal Mortality Rate (NNMR),
 Post-neonatal Mortality Rate (PNNMR), Infant Mortality Rate (IMR), Child Mortality Rate (CMR),
 and Under-5 Mortality Rate (U5MR)
-\code{chmort} returns the Standrad Error (SE), Number of births contributed to the death exposure (N),
-the Relative Standard Error (RSE) and the Confidence Interval (CI).
+\code{chmort} returns the Standrad Error (SE), the mortality exposure (N), the weighted exposure (WN),
+the Design Effect (DEFT), the Relative Standard Error (RSE) and the Confidence Interval (CI).
 }
 \examples{
 # Calculate five-year children mortality rates based on ADBR70 data

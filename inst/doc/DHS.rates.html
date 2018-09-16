@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mahmoud Elkasabi, Ph.D." />
 
-<meta name="date" content="2018-06-10" />
+<meta name="date" content="2018-09-16" />
 
 <title>Introduction to the DHS.rates package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to the DHS.rates package</h1>
 <h4 class="author"><em>Mahmoud Elkasabi, Ph.D.</em></h4>
-<h4 class="date"><em>2018-06-10</em></h4>
+<h4 class="date"><em>2018-09-16</em></h4>
 
 
 
@@ -78,7 +78,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h1>Overview</h1>
 <p>The package was developed to calculate key indicators based on the Demographic and Health Survey data. In addition to calculating the indicators on the national level, the DHS.rates allows for domain level indicators.</p>
 <p>In addition to the indicators, the ‘DHS.rates’ package estimates precision indicators such as Standard Error (SE), Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI).</p>
-<p>The package is developed according to the DHS methodology of calculating the DHS indicators outlined in the “DHS Guide to Statistics” (Rutstein and Rojas 2006, <a href="http://dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_29Oct2012_DHSG1.pdf" class="uri">http://dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_29Oct2012_DHSG1.pdf</a>) and the DHS methodology of estimating the precision indicators outlined in the “DHS Sampling and Household Listing Manual” (ICF International 2012, <a href="https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf" class="uri">https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf</a>).</p>
+<p>The package is developed according to the DHS methodology of calculating the DHS indicators outlined in the “DHS Guide to Statistics” (Croft, Trevor N., Aileen M. J. Marshall, Courtney K. Allen, et al. 2018, <a href="https://dhsprogram.com/Data/Guide-to-DHS-Statistics/index.cfm" class="uri">https://dhsprogram.com/Data/Guide-to-DHS-Statistics/index.cfm</a>) and the DHS methodology of estimating the sampling errors indicators outlined in the “DHS Sampling and Household Listing Manual” (ICF International 2012, <a href="https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf" class="uri">https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf</a>).</p>
 </div>
 <div id="datasets" class="section level1">
 <h1>Datasets</h1>
@@ -187,32 +187,32 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <p><em>chmort</em> can calculate five-year childhood mortality rates based on birth ADBR70 data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70))</code></pre></div>
 <pre><code>## [[1]]
-##        Rate    N
-## NNMR  29.72  813
-## PNNMR 24.04  931
-## IMR   53.76  968
-## CMR   18.79 1240
-## U5MR  71.53 1477</code></pre>
+##        Rate   N  WN
+## NNMR  29.72 800 877
+## PNNMR 24.04 782 862
+## IMR   53.76 800 885
+## CMR   18.79 700 774
+## U5MR  71.53 738 809</code></pre>
 <div id="jackknife-se-for-childhood-mortality-rates" class="section level4">
 <h4>Jackknife SE for childhood mortality rates</h4>
 <p>in the previous example you can use the <em>JK</em> argument to estimate SE, RSE and CI. the SE is based on Jackknife variance estimation</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>))</code></pre></div>
 <pre><code>## [[1]]
-##        Rate    SE    N  RSE   LCI   UCI iterations
-## NNMR  29.72  6.91  813 0.23 15.90 43.55         50
-## PNNMR 24.04  5.75  931 0.24 12.54 35.53         50
-## IMR   53.76  7.63  968 0.14 38.50 69.02         50
-## CMR   18.79  4.75 1240 0.25  9.28 28.29         50
-## U5MR  71.53 10.22 1477 0.14 51.09 91.98         50</code></pre>
+##        Rate    SE   N  WN DEFT  RSE   LCI   UCI iterations
+## NNMR  29.72  6.91 800 877 1.24 0.23 15.90 43.54         50
+## PNNMR 24.04  5.75 782 862 1.14 0.24 12.54 35.54         50
+## IMR   53.76  7.63 800 885 0.98 0.14 38.50 69.02         50
+## CMR   18.79  4.75 700 774 1.08 0.25  9.29 28.29         50
+## U5MR  71.53 10.22 738 809 1.31 0.14 51.09 91.97         50</code></pre>
 <p>The study period in the previous examples are the default 5 years previous to the survey. The ten-year children mortality rates can be calculated using the <em>Period</em> argument as follows</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">Period =</span> <span class="dv">10</span>))</code></pre></div>
 <pre><code>## [[1]]
-##        Rate    N
-## NNMR  32.18 1486
-## PNNMR 24.79 1535
-## IMR   56.97 1593
-## CMR   24.25 1748
-## U5MR  79.83 2005</code></pre>
+##        Rate    N   WN
+## NNMR  32.18 1476 1621
+## PNNMR 24.79 1408 1553
+## IMR   56.97 1452 1601
+## CMR   24.25 1248 1369
+## U5MR  79.83 1342 1466</code></pre>
 <p>Similar to <em>fert</em>, in <em>chmort</em> the <em>Class</em> can be used to produce domain level indicators.</p>
 </div>
 </div>

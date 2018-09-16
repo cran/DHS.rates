@@ -17,10 +17,9 @@ The package was developed to calculate key indicators based on the Demographic a
 
 In addition to the indicators, the 'DHS.rates' package estimates precision indicators such as Standard Error (SE), Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI).
 
-The package is developed according to the DHS methodology of calculating the DHS indicators outlined in the "DHS Guide to Statistics" (Rutstein and Rojas 2006,
-    <http://dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_29Oct2012_DHSG1.pdf>) 
-    and the DHS methodology of estimating the precision indicators outlined in the "DHS Sampling and Household Listing Manual" (ICF International 2012, 
-    <https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf>).
+The package is developed according to the DHS methodology of calculating the DHS indicators outlined in the "DHS Guide to Statistics" (Croft, Trevor N., Aileen M. J. Marshall, Courtney K. Allen, et al. 2018, <https://dhsprogram.com/Data/Guide-to-DHS-Statistics/index.cfm>)
+  and the DHS methodology of estimating the sampling errors indicators outlined in 
+  the "DHS Sampling and Household Listing Manual" (ICF International 2012, <https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf>).
  
 # Datasets
 First you need to install the package from the CRAN as follows:
@@ -145,6 +144,7 @@ _chmort_ can calculate five-year childhood mortality rates based on birth ADBR70
 ```{r }
 (chmort(ADBR70))
 ```
+
 
 #### Jackknife SE for childhood mortality rates
 

@@ -1,20 +1,20 @@
 Package: DHS.rates
 Type: Package
 Title: Calculate Key DHS Indicators
-Version: 0.3.1
-Date: 2018-06-10
+Version: 0.4.0
+Date: 2018-09-16
 Author: Mahmoud Elkasabi
 Maintainer: Mahmoud Elkasabi <mahmoud.elkasabi@icf.com>
 Description: Calculates key indicators such as fertility rates (Total Fertility Rate (TFR), General Fertility Rate (GFR), 
   and Age Specific Fertility Rate (ASFR)) using Demographic and Health Survey (DHS) women/individual data, 
   and childhood mortality rates such as Neonatal Mortality Rate (NNMR), Post-neonatal Mortality Rate (PNNMR), 
-  Infant Mortality Rate (IMR), Child Mortality Rate (CMR), and Under-5 Mortality Rate (U5MR). 
-  In addition to the indicators, the 'DHS.rates' package estimates precision indicators such as Standard Error (SE), 
+  Infant Mortality Rate (IMR), Child Mortality Rate (CMR), and Under-five Mortality Rate (U5MR). 
+  In addition to the indicators, the 'DHS.rates' package estimates sampling errors indicators such as Standard Error (SE), 
   Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI). 
   The package is developed according to the DHS methodology of calculating the fertility indicators and 
   the childhood mortality rates  outlined in the 
-  "DHS Guide to Statistics" (Rutstein and Rojas 2006, <http://dhsprogram.com/pubs/pdf/DHSG1/Guide_to_DHS_Statistics_29Oct2012_DHSG1.pdf>) 
-  and the DHS methodology of estimating the precision indicators outlined in 
+  "Guide to DHS Statistics" (Croft, Trevor N., Aileen M. J. Marshall, Courtney K. Allen, et al. 2018, <https://dhsprogram.com/Data/Guide-to-DHS-Statistics/index.cfm>) 
+  and the DHS methodology of estimating the sampling errors indicators outlined in 
   the "DHS Sampling and Household Listing Manual" (ICF International 2012, <https://dhsprogram.com/pubs/pdf/DHSM4/DHS6_Sampling_Manual_Sept2012_DHSM4.pdf>).
 License: GPL-2
 Encoding: UTF-8
@@ -25,6 +25,6 @@ RoxygenNote: 6.0.1
 VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2018-06-10 21:01:18 UTC; 31672
+Packaged: 2018-09-16 16:01:23 UTC; 31672
 Repository: CRAN
-Date/Publication: 2018-06-10 21:14:51 UTC
+Date/Publication: 2018-09-16 16:30:15 UTC
