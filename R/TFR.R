@@ -1,15 +1,60 @@
 # TFR function: calculate TFR
 # Mahmoud Elkasabi
 # 03/02/2018
-# Edited on 06/10/2018
+# Edited on 09/12/2018
+# Edited on 01/05/2019
 
-TFR <- function (Data.Name, JK = NULL, EverMW = NULL, AWFact = NULL,
+TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL)
 {
   Data.Name <- Data.Name[!Data.Name$v005 == 0, ]
   Data.Name$ID <- seq.int(nrow(Data.Name))
 
-  #######For Overall Indicators; no Class #####################################################
+  # The CI confidence level
+  if (is.null(CL)) {
+    Z <- stats::qnorm(.025,lower.tail=FALSE)
+  } else {
+    Z <- stats::qnorm((100-CL)/200,lower.tail=FALSE)
+  }
+
+  ## Title for the results #########################
+  if (is.null(Period)){Periodmsg = 36} else {Periodmsg = Period}
+
+  if (is.null(PeriodEnd)){
+    PeriodEndy_ <- as.integer((mean(Data.Name$v008) - 1)/12)+1900
+    PeriodEndm_ <- round(mean(Data.Name$v008) - ((PeriodEndy_ - 1900) * 12),0)
+
+    PeriodEndm_m <- round(min(Data.Name$v008) - ((PeriodEndy_ - 1900) * 12),0)
+    PeriodEndm_x <- round(max(Data.Name$v008) - ((PeriodEndy_ - 1900) * 12),0)
+  }
+  else {
+    dates <- paste(PeriodEnd, "01", sep = "-")
+    PeriodEndm_ <- as.numeric(format(as.Date(dates), "%m"))
+    PeriodEndy_ <- as.numeric(format(as.Date(dates), "%Y"))
+
+    if (PeriodEndm_ >=  round(mean(Data.Name$v008) - (((as.integer((mean(Data.Name$v008) - 1)/12)+1900) - 1900) * 12),0) &
+        PeriodEndy_ >= as.integer((mean(Data.Name$v008) - 1)/12)+1900)
+
+      message(crayon::bold("Note:", "\n",
+                   "You specified a reference period that ends after the survey fieldwork dates....."), "\n",
+              "1. Make sure the dates in the survey are coded according to the Gregorian calendar.", "\n",
+              "2. If the dates are coded according to the Gregorian calendar, use a proper PeriodEnd that came before the time of the survey.", "\n",
+              "3. If the dates are not coded according to the Gregorian calendar, use a PeriodEnd according to the used calendar.")
+
+  }
+
+
+  if (is.null(PeriodEnd)){
+  cat("\n", crayon::white$bgBlue$bold("The current function calculated TFR based on a reference period of"),
+      crayon::red$bold$underline(Periodmsg), crayon::white$bold$bgBlue("months"), "\n", crayon::white$bold$bgBlue("The reference period ended at the time of the interview, in"), crayon::red$bold$underline(month.abb[PeriodEndm_m]), "-", crayon::red$bold$underline(month.abb[PeriodEndm_x]), crayon::red$bold$underline(PeriodEndy_), "\n" )
+  }
+  else {
+  cat("\n", crayon::white$bgBlue$bold("The current function calculated TFR based on a reference period of"),
+      crayon::red$bold$underline(Periodmsg), crayon::white$bold$bgBlue("months"), "\n", crayon::white$bold$bgBlue("The reference period ended in"), crayon::red$bold$underline(month.abb[PeriodEndm_]), crayon::red$bold$underline(PeriodEndy_), "\n" )
+
+  }
+
+    #######For Overall Indicators; no Class #####################################################
 
   if (is.null(Class)){
 
@@ -36,6 +81,7 @@ TFR <- function (Data.Name, JK = NULL, EverMW = NULL, AWFact = NULL,
       dimnames(RESULTtfr) <- list(NULL, c("TFR", "N", "WN") )
       RESULTtfr[1, ] <- c(TFR, round(N, 0), round(WN, 0))
       res2 <- round(RESULTtfr, 3)
+
       list(res2)
 
     } else {
@@ -52,12 +98,14 @@ TFR <- function (Data.Name, JK = NULL, EverMW = NULL, AWFact = NULL,
       JKSE = ((PSU * TFR - (PSU-1) * TFRj)-TFR)^2
       SE = sqrt(sum(JKSE) / (PSU * (PSU-1)))
       RSE = SE / TFR
-      LCI = TFR - (2 * SE)
-      UCI = TFR + (2 * SE)
+      LCI = TFR - (Z * SE)
+      LCI[LCI <= 0] = 0
+      UCI = TFR + (Z * SE)
       RESULTS <- matrix(0, nrow = 1, ncol = 9)
       dimnames(RESULTS) <- list(NULL, c("TFR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations"))
       RESULTS[1, ] <- c(TFR, SE, round(N, 0), round(WN, 0), TFR_DEFT, RSE, LCI, UCI, PSU)
       RESULTS <- round(RESULTS, 3)
+
       list(RESULTS)
     }
 
@@ -128,8 +176,9 @@ TFR <- function (Data.Name, JK = NULL, EverMW = NULL, AWFact = NULL,
           JKSE = ((PSU * TFR - (PSU-1) * TFRj)-TFR)^2
           SE = sqrt(sum(JKSE) / (PSU * (PSU-1)))
           RSE = SE / TFR
-          LCI = TFR - (2 * SE)
-          UCI = TFR + (2 * SE)
+          LCI = TFR - (Z * SE)
+          LCI[LCI <= 0] = 0
+          UCI = TFR + (Z * SE)
           RESULTS[j, ] <- c(attributes(Dat[[Class]])$levels[[j]], round(TFR, 3), round(SE, 3),
                             round(N, 0), round(WN, 0), round(TFR_DEFT, 3), round(RSE, 3), round(LCI, 3),
                             round(UCI, 3), PSU)
@@ -137,6 +186,6 @@ TFR <- function (Data.Name, JK = NULL, EverMW = NULL, AWFact = NULL,
       }
     }
 
-    if (is.null(JK)){list(RESULTtfr)[[1]]} else {list(RESULTS)[[1]]}
+    if (is.null(JK)){list(RESULTtfr)} else {list(RESULTS)}
   }
 }

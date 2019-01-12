@@ -155,10 +155,10 @@ the SE is based on Jackknife variance estimation
 (chmort(ADBR70,JK="Yes"))
 ```
 
-The study period in the previous examples are the default 5 years previous to the survey. The ten-year children mortality rates can be calculated using the _Period_ argument as follows
+The study period in the previous examples are the default 60 months (5 years) previous to the survey. The ten-year children mortality rates can be calculated using the _Period_ argument as follows
 
 ```{r }
-(chmort(ADBR70,Period = 10))
+(chmort(ADBR70,Period = 120))
 ```
 
 Similar to _fert_, in _chmort_ the _Class_ can be used to produce domain level indicators.  

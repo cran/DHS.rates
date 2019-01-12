@@ -13,7 +13,7 @@
   \item{v022}{Sample strata for sampling error}
   \item{v025}{Type of residence urban/rural}
   \item{b3}{Date of birth (CMC)}
-  \item{b7}{Date of death (CMC)}
+  \item{b7}{Age at death}
 }}
 \source{
 \url{https://dhsprogram.com/data/available-datasets.cfm}

@@ -4,8 +4,8 @@
 \alias{fert}
 \title{Calculates fertility indicators based on the Demographic and Health Surveys (DHS).}
 \usage{
-fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
-  Weight = NULL, Year_of_survey = NULL, Date_of_interview = NULL,
+fert(Data.Name, Indicator, JK = NULL, CL = NULL, Strata = NULL,
+  Cluster = NULL, Weight = NULL, Date_of_interview = NULL,
   Woman_DOB = NULL, EverMW = NULL, AWFact = NULL, PeriodEnd = NULL,
   Period = NULL, Class = NULL)
 }
@@ -16,13 +16,13 @@ fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
 
 \item{JK}{"Yes" to estimate Jackknife SE for TFR.}
 
+\item{CL}{The confidence level to calculate the Confidence Intervals; default if 95.}
+
 \item{Strata}{The stratification variable name if other than "v022".}
 
 \item{Cluster}{The sampling clusters variable name if other than "v021".}
 
 \item{Weight}{The sampling weight variable name if other than "v005".}
-
-\item{Year_of_survey}{Year of survey variable if other than "v007".}
 
 \item{Date_of_interview}{Date of Interview variable if other than "v008".}
 
@@ -32,9 +32,9 @@ fert(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
 
 \item{AWFact}{The all-women-factor variable name; only for ever-married women data.}
 
-\item{PeriodEnd}{The end year of the exposure period; default is the year of the survey.}
+\item{PeriodEnd}{The end of the exposure period in YYYY-MM format; default is the time of the survey.}
 
-\item{Period}{The study period for fertility; default is 3 years.}
+\item{Period}{The study period for fertility; default is 36 months (3 years).}
 
 \item{Class}{Allow for domain level indicators.}
 }

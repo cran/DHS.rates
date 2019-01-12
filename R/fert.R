@@ -13,13 +13,13 @@
 #'
 #' @param JK "Yes" to estimate Jackknife SE for TFR.
 #'
+#' @param CL The confidence level to calculate the Confidence Intervals; default if 95.
+#'
 #' @param Strata The stratification variable name if other than "v022".
 #'
 #' @param Cluster The sampling clusters variable name if other than "v021".
 #'
 #' @param Weight The sampling weight variable name if other than "v005".
-#'
-#' @param Year_of_survey Year of survey variable if other than "v007".
 #'
 #' @param Date_of_interview Date of Interview variable if other than "v008".
 #'
@@ -29,9 +29,9 @@
 #'
 #' @param AWFact The all-women-factor variable name; only for ever-married women data.
 #'
-#' @param PeriodEnd The end year of the exposure period; default is the year of the survey.
+#' @param PeriodEnd The end of the exposure period in YYYY-MM format; default is the time of the survey.
 #'
-#' @param Period The study period for fertility; default is 3 years.
+#' @param Period The study period for fertility; default is 36 months (3 years).
 #'
 #' @param Class Allow for domain level indicators.
 #'
@@ -69,8 +69,8 @@
 #' @return Fertility indicators (TFR, GFR or ASFR), and precision indicators (SE, DEFT, RSE and CI).
 #'
 #' @export
-fert <- function(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL, Weight = NULL,
-                 Year_of_survey = NULL, Date_of_interview = NULL, Woman_DOB = NULL, EverMW = NULL,
+fert <- function(Data.Name, Indicator, JK = NULL, CL = NULL, Strata = NULL, Cluster = NULL, Weight = NULL,
+                 Date_of_interview = NULL, Woman_DOB = NULL, EverMW = NULL,
                  AWFact = NULL, PeriodEnd = NULL, Period = NULL, Class = NULL){
 
   if (!Indicator %in% c("tfr", "gfr", "asfr"))
@@ -94,12 +94,6 @@ fert <- function(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
     names(Data.Name)[names(Data.Name) == c("weight")] <- c("v005")
   }
 
-  if (!is.null(Year_of_survey)){
-    Data.Name$YOS = Data.Name[[Year_of_survey]]
-    Data.Name$v007 = NULL
-    names(Data.Name)[names(Data.Name) == c("YOS")] <- c("v007")
-  }
-
     if (!is.null(Date_of_interview)){
     Data.Name$DOI = Data.Name[[Date_of_interview]]
     Data.Name$v008 = NULL
@@ -114,7 +108,6 @@ fert <- function(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
 
   if (!("v021" %in% names(Data.Name))) stop({message("Error: v021/Primary-sampling-unit is missing")})
   if (!("v005" %in% names(Data.Name))) stop({message("Error: v005/Sample-weight is missing")})
-  if (!("v007" %in% names(Data.Name))) stop({message("Error: v007/Year-of-survey is missing")})
   if (!("v008" %in% names(Data.Name))) stop({message("Error: v008/Date-of-Interview is missing")})
   if (!("v011" %in% names(Data.Name))) stop({message("Error: v011/Woman-date-of-birth is missing")})
   if (!("v022" %in% names(Data.Name))) stop({message("Error: v022/Sample-strata is missing")})
@@ -141,14 +134,14 @@ fert <- function(Data.Name, Indicator, JK = NULL, Strata = NULL, Cluster = NULL,
 
 
   if (Indicator == "tfr"){
-    TFR(Data.Name, JK, EverMW, AWFact, PeriodEnd, Period, Class)
+    TFR(Data.Name, JK, CL, EverMW, AWFact, PeriodEnd, Period, Class)[[1]]
   }
   else if (Indicator == "gfr"){
-    GFR(Data.Name, EverMW, AWFact, PeriodEnd, Period, Class)
+    GFR(Data.Name, CL, EverMW, AWFact, PeriodEnd, Period, Class)[[1]]
 
   }
   else if (Indicator == "asfr"){
-    ASFR(Data.Name, EverMW, AWFact, PeriodEnd, Period, Class)
+    ASFR(Data.Name, CL, EverMW, AWFact, PeriodEnd, Period, Class)[[1]]
 
   }
 }

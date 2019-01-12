@@ -12,23 +12,23 @@
 #'
 #' @param JK "Yes" to estimate Jackknife SE.
 #'
+#' @param CL The confidence level to calculate the Confidence Intervals; default if 95.
+#'
 #' @param Strata The stratification variable name if other than "v022".
 #'
 #' @param Cluster The sampling clusters variable name if other than "v021".
 #'
 #' @param Weight The sampling weight variable name if other than "v005".
 #'
-#' @param Year_of_survey Year of survey variable if other than "v007".
-#'
 #' @param Date_of_interview Date of Interview variable if other than "v008".
 #'
 #' @param Date_of_birth Child date of birth variable if other than "b3".
 #'
-#' @param Date_of_death Child date of death variable if other than "b7".
+#' @param Age_at_death Child age at death variable if other than "b7".
 #'
-#' @param PeriodEnd The end year of the exposure period; default is the year of the survey.
+#' @param PeriodEnd The end of the exposure period in YYYY-MM format; default is the time of the survey.
 #'
-#' @param Period The study period for mortality; default is 5 years.
+#' @param Period The study period for mortality; default is 60 months (5 years).
 #'
 #' @param Class Allow for domain level indicators.
 #'
@@ -48,24 +48,24 @@
 #' chmort(
 #'  ADBR70,
 #'  JK = "Yes",
-#'  Period = 10
+#'  Period = 120
 #' )
 #'
 #' @examples
-#' # The exposure period ends in 2011
+#' # The exposure period ends in June 2011
 #'
 #' data("ADBR70")
 #' chmort(
 #'  ADBR70,
-#'  PeriodEnd = 2011
+#'  PeriodEnd = "2011-06"
 #' )
 #'
 #' @return Childhood mortality rates (NNMR, PNNMR, IMR, CMR and U5MR), and precision indicators (SE, RSE and CI).
 #'
 #' @export
-chmort <- function(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL, Weight = NULL, Year_of_survey = NULL,
-                       Date_of_interview = NULL, Date_of_birth = NULL, Date_of_death = NULL, PeriodEnd = NULL,
-                       Period = NULL, Class = NULL){
+chmort <- function(Data.Name, JK = NULL, CL = NULL, Strata = NULL, Cluster = NULL, Weight = NULL,
+                   Date_of_interview = NULL, Date_of_birth = NULL, Age_at_death = NULL,
+                   PeriodEnd = NULL, Period = NULL, Class = NULL){
 
       if (!is.null(Strata)){
         Data.Name$strata = Data.Name[[Strata]]
@@ -85,12 +85,6 @@ chmort <- function(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL, Weight =
         names(Data.Name)[names(Data.Name) == c("weight")] <- c("v005")
       }
 
-      if (!is.null(Year_of_survey)){
-        Data.Name$YOS = Data.Name[[Year_of_survey]]
-        Data.Name$v007 = NULL
-        names(Data.Name)[names(Data.Name) == c("YOS")] <- c("v007")
-      }
-
       if (!is.null(Date_of_interview)){
         Data.Name$DOI = Data.Name[[Date_of_interview]]
         Data.Name$v008 = NULL
@@ -103,39 +97,85 @@ chmort <- function(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL, Weight =
         names(Data.Name)[names(Data.Name) == c("BDOB")] <- c("b3")
       }
 
-      if (!is.null(Date_of_death)){
-        Data.Name$BDOD = Data.Name[[Date_of_death]]
+      if (!is.null(Age_at_death)){
+        Data.Name$BDOD = Data.Name[[Age_at_death]]
         Data.Name$b7 = NULL
         names(Data.Name)[names(Data.Name) == c("BDOD")] <- c("b7")
       }
 
       if (!("v021" %in% names(Data.Name))) stop({message("Error: v021/Primary-sampling-unit is missing")})
       if (!("v005" %in% names(Data.Name))) stop({message("Error: v005/Sample-weight is missing")})
-      if (!("v007" %in% names(Data.Name))) stop({message("Error: v007/Year-of-survey is missing")})
       if (!("v008" %in% names(Data.Name))) stop({message("Error: v008/Date-of-Interview is missing")})
       if (!("v022" %in% names(Data.Name))) stop({message("Error: v022/Sample-strata is missing")})
       if (!("b3" %in% names(Data.Name))) stop({message("Error: b3/Date-of-birth is missing")})
-      if (!("b7" %in% names(Data.Name))) stop({message("Error: b7/Date-of-death is missing")})
+      if (!("b7" %in% names(Data.Name))) stop({message("Error: b7/Age-at-death is missing")})
 
       Data.ready <- as.data.frame(Data.Name[!Data.Name$v005 == 0,])
 
       if (is.null(Period)){Data.ready$period = 60}
-      else {Data.ready$period = Period * 12}   # refence period in years
+      else {Data.ready$period = Period}   # refence period in months
 
-      if (is.null(PeriodEnd)){Data.ready$periodend = 0}
-      else {Data.ready$periodend = (Data.ready$v007 - PeriodEnd) * 12}  # End of refence period in years;
-      #0 when the end is the DOI
+      if (is.null(PeriodEnd)){Data.ready$periodend = Data.ready$v008}
+      else {
+      dates <- paste(PeriodEnd, "01", sep = "-")
+      PeriodEndm <- as.numeric(format(as.Date(dates), "%m"))
+      PeriodEndy <- as.numeric(format(as.Date(dates), "%Y"))
+      PeriodEndcmc <- ((PeriodEndy - 1900) * 12) + PeriodEndm
+      Data.ready$periodend = PeriodEndcmc
+      }  # End of refence period;
+
+      # The CI confidence level
+      if (is.null(CL)) {
+        Z <- stats::qnorm(.025,lower.tail=FALSE)
+      } else {
+        Z <- stats::qnorm((100-CL)/200,lower.tail=FALSE)
+      }
 
       Data.ready$rweight = Data.ready$v005/1000000
 
       #Time period
-      Data.ready$tu <- (Data.ready$v008 - Data.ready$periodend)
-      Data.ready$tl <- (Data.ready$v008 - Data.ready$periodend) - Data.ready$period
+      Data.ready$tu <- Data.ready$periodend
+      Data.ready$tl <- Data.ready$periodend - Data.ready$period
+
+      ## Title for the results #########################
+      if (is.null(Period)){Periodmsg = 60} else {Periodmsg = Period}
+
+      if (is.null(PeriodEnd)){
+        PeriodEndy_ <- as.integer((mean(Data.ready$v008) - 1)/12)+1900
+        PeriodEndm_ <- round(mean(Data.ready$v008) - ((PeriodEndy_ - 1900) * 12),0)
+
+        PeriodEndm_m <- round(min(Data.ready$v008) - ((PeriodEndy_ - 1900) * 12),0)
+        PeriodEndm_x <- round(max(Data.ready$v008) - ((PeriodEndy_ - 1900) * 12),0)
+      }
+      else {
+        dates <- paste(PeriodEnd, "01", sep = "-")
+        PeriodEndm_ <- as.numeric(format(as.Date(dates), "%m"))
+        PeriodEndy_ <- as.numeric(format(as.Date(dates), "%Y"))
+
+        if (PeriodEndm_ >=  round(mean(Data.ready$v008) - (((as.integer((mean(Data.ready$v008) - 1)/12)+1900) - 1900) * 12),0) &
+            PeriodEndy_ >= as.integer((mean(Data.ready$v008) - 1)/12)+1900)
+
+        message(crayon::bold("Note:", "\n",
+                       "You specified a reference period that ends after the survey fieldwork dates....."), "\n",
+                  "1. Make sure the dates in the survey are coded according to the Gregorian calendar.", "\n",
+                  "2. If the dates are coded according to the Gregorian calendar, use a proper PeriodEnd that came before the time of the survey.", "\n",
+                  "3. If the dates are not coded according to the Gregorian calendar, use a PeriodEnd according to the used calendar.")
+      }
+
+    if (is.null(PeriodEnd)){
+        cat("\n", crayon::white$bgBlue$bold("The current function calculated Childhood Mortality Rates based on a reference period of"),
+            crayon::red$bold$underline(Periodmsg), crayon::white$bold$bgBlue("months"), "\n", crayon::white$bold$bgBlue("The reference period ended at the time of the interview, in"), crayon::red$bold$underline(month.abb[PeriodEndm_m]), "-", crayon::red$bold$underline(month.abb[PeriodEndm_x]), crayon::red$bold$underline(PeriodEndy_), "\n" )
+      }
+      else {
+        cat("\n", crayon::white$bgBlue$bold("The current function calculated Childhood Mortality Rates based on a reference period of"),
+            crayon::red$bold$underline(Periodmsg), crayon::white$bold$bgBlue("months"), "\n", crayon::white$bold$bgBlue("The reference period ended in"), crayon::red$bold$underline(month.abb[PeriodEndm_]), crayon::red$bold$underline(PeriodEndy_), "\n" )
+
+      }
 
       #######For Overall Indicators; no Class ########################################
       if (is.null(Class)){
 
-        chmortdat<- Data.ready[, c("v021", "v022", "rweight", "v007", "v008", "b3", "b7", "tu", "tl","periodend")]
+        chmortdat<- Data.ready[, c("v021", "v022", "rweight", "v008", "b3", "b7", "tu", "tl","periodend")]
         chmortdat$id <- c(as.factor(chmortdat$v021))
 
         if (is.null(JK)){PSU <- 0} else {PSU <- max(chmortdat$id)}
@@ -156,7 +196,7 @@ chmort <- function(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL, Weight =
             RESULTcmr[i,2] = round(NBIRTH[i],0)
             RESULTcmr[i,3] = round(NBIRTHW[i],0)
           }
-          list(RESULTcmr)
+          list(RESULTcmr)[[1]]
 
         } else {
 
@@ -176,18 +216,19 @@ chmort <- function(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL, Weight =
             RESULTcmr[i, 4] = round(NBIRTHW[i],0)
             RESULTcmr[i, 5] = round(DEFF[i],2)
             RESULTcmr[i, 6] = round(RESULTcmr[i, 2] / RESULTcmr[i, 1],2)
-            RESULTcmr[i, 7] = round(RESULTcmr[i, 1] - (2 * RESULTcmr[i, 2]),2)
-            RESULTcmr[i, 8] = round(RESULTcmr[i, 1] + (2 * RESULTcmr[i, 2]),2)
+            RESULTcmr[i, 7] = round(RESULTcmr[i, 1] - (Z * RESULTcmr[i, 2]),2)
+            RESULTcmr[i, 7] [RESULTcmr[i, 7] <= 0]= 0
+            RESULTcmr[i, 8] = round(RESULTcmr[i, 1] + (Z * RESULTcmr[i, 2]),2)
             RESULTcmr[i, 9] = PSU
           }
-          list(RESULTcmr)
+          list(RESULTcmr)[[1]]
         }
       }
 
       #######For Class Indicators; #################################################################################################
       else{
 
-        chmortdat<- Data.ready[, c("v021", "v022", "rweight", "v007", "v008", "b3", "b7", "tu", "tl",
+        chmortdat<- Data.ready[, c("v021", "v022", "rweight", "v008", "b3", "b7", "tu", "tl",
                                    "periodend", Class)]
 
         chmortdat$DomID  <- c(as.factor(chmortdat[[Class]]))
@@ -244,15 +285,18 @@ chmort <- function(Data.Name, JK = NULL, Strata = NULL, Cluster = NULL, Weight =
               RateSE[names(RateSE)[i]] = sqrt(sum(JKSE)/(PSU * (PSU-1)))
             }
 
+            LCI = CHMORT - (Z * RateSE)
+            LCI[LCI <= 0] = 0
+
             RESULTS0 <- cbind.data.frame(attributes(DatD[[Class]])$levels[[j]], round(CHMORT, 2),
                                          round(RateSE, 2), round(NBIRTH,0), round(NBIRTHW,0), round(DEFF,2), round(RateSE/CHMORT, 2),
-                                         round(CHMORT - 2 * RateSE, 2), round(CHMORT + 2 * RateSE, 2),
+                                         round(LCI, 2), round(CHMORT + Z * RateSE, 2),
                                          PSU)
 
             names(RESULTS0) <- c("Class", "R", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations")
             RESULTSJK = rbind(RESULTSJK, RESULTS0)
           }
         }
-        if (is.null(JK)){list(RESULTS)} else {list(RESULTSJK)}
+        if (is.null(JK)){list(RESULTS)[[1]]} else {list(RESULTSJK)[[1]]}
       }
     }

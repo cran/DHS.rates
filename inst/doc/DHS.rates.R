@@ -38,5 +38,5 @@ data("ADBR70")
 (chmort(ADBR70,JK="Yes"))
 
 ## ------------------------------------------------------------------------
-(chmort(ADBR70,Period = 10))
+(chmort(ADBR70,Period = 120))
 

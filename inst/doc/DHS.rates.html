@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mahmoud Elkasabi, Ph.D." />
 
-<meta name="date" content="2018-09-16" />
+<meta name="date" content="2019-01-12" />
 
 <title>Introduction to the DHS.rates package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to the DHS.rates package</h1>
 <h4 class="author"><em>Mahmoud Elkasabi, Ph.D.</em></h4>
-<h4 class="date"><em>2018-09-16</em></h4>
+<h4 class="date"><em>2019-01-12</em></h4>
 
 
 
@@ -115,16 +115,20 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <h3>Total Fertility Rate (TFR):</h3>
 <p><em>fert</em> can calculate Total Fertility Rate (TFR) based on all women AWIR70 data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(TFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;tfr&quot;</span>))</code></pre></div>
-<pre><code>## [[1]]
-##        TFR    N   WN
+<pre><code>## 
+##  The current function calculated TFR based on a reference period of 36 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##        TFR    N   WN
 ## [1,] 4.011 8442 8625</code></pre>
 <div id="jackknife-se-for-tfr" class="section level4">
 <h4>Jackknife SE for TFR</h4>
 <p>in the previous example you can use the <em>JK</em> argument to estimate SE, DEFT, RSE and CI. the SE is based on Jackknife variance estimation</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(TFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;tfr&quot;</span>,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>))</code></pre></div>
-<pre><code>## [[1]]
-##        TFR    SE    N   WN  DEFT   RSE   LCI   UCI iterations
-## [1,] 4.011 0.142 8442 8625 1.207 0.035 3.726 4.295        120</code></pre>
+<pre><code>## 
+##  The current function calculated TFR based on a reference period of 36 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##        TFR    SE    N   WN  DEFT   RSE   LCI   UCI iterations
+## [1,] 4.011 0.142 8442 8625 1.207 0.035 3.732 4.289        120</code></pre>
 </div>
 </div>
 <div id="general-fertility-rate-gfr" class="section level3">
@@ -132,40 +136,49 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <p><em>fert</em> can calculate GFR and estimate SE, DEFT, RSE and CI based on ever-married women EMIR70 data</p>
 <p>For ever-married samples, you need to call the <em>EverMW</em> argument and use <em>AWFact</em> to define the variable name of the All-women factor</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(GFR &lt;-<span class="st"> </span><span class="kw">fert</span>(EMIR70,<span class="dt">Indicator=</span><span class="st">&quot;gfr&quot;</span>,<span class="dt">EverMW=</span><span class="st">&quot;YES&quot;</span>,<span class="dt">AWFact=</span><span class="st">&quot;awfactt&quot;</span>))</code></pre></div>
-<pre><code>## [[1]]
-##         GFR   SE    N   WN  DEFT   RSE    LCI     UCI
-## [1,] 91.983 4.19 9472 6710 1.497 0.046 83.603 100.364</code></pre>
+<pre><code>## 
+##  The current function calculated GFR based on a reference period of 36 months 
+##  The reference period ended at the time of the interview, in Jun - Oct 2014</code></pre>
+<pre><code>##         GFR   SE    N   WN  DEFT   RSE   LCI     UCI
+## [1,] 91.983 4.19 9472 6710 1.497 0.046 83.77 100.196</code></pre>
 </div>
 <div id="age-specific-fertility-rates-asfr" class="section level3">
 <h3>Age Specific Fertility Rates (ASFR)</h3>
 <p><em>fert</em> can calculate ASFR and estimate SE, DEFT, RSE and CI based on all women AWIR70 data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(ASFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;asfr&quot;</span>))</code></pre></div>
-<pre><code>## [[1]]
-##     AGE    ASFR     SE    N   WN  DEFT   RSE     LCI     UCI
-## 0 15-19 111.102  7.689 1789 1829 1.091 0.069  95.724 126.481
-## 1 20-24 207.647 10.357 1554 1566 1.110 0.050 186.932 228.361
-## 2 25-29 188.508 10.712 1490 1552 1.220 0.057 167.084 209.933
-## 3 30-34 158.503 10.762 1386 1431 1.196 0.068 136.980 180.027
-## 4 35-39 104.737  9.207 1070 1126 0.953 0.088  86.324 123.150
-## 5 40-44  24.797  6.285  800  780 1.078 0.253  12.226  37.368
-## 6 45-49   6.848  4.496  354  340 1.027 0.657  -2.144  15.839</code></pre>
+<pre><code>## 
+##  The current function calculated ASFR based on a reference period of 36 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##     AGE    ASFR     SE    N   WN  DEFT   RSE     LCI     UCI
+## 0 15-19 111.102  7.689 1789 1829 1.091 0.069  96.032 126.173
+## 1 20-24 207.647 10.357 1554 1566 1.110 0.050 187.347 227.947
+## 2 25-29 188.508 10.712 1490 1552 1.220 0.057 167.513 209.504
+## 3 30-34 158.503 10.762 1386 1431 1.196 0.068 137.411 179.596
+## 4 35-39 104.737  9.207 1070 1126 0.953 0.088  86.692 122.782
+## 5 40-44  24.797  6.285  800  780 1.078 0.253  12.478  37.116
+## 6 45-49   6.848  4.496  354  340 1.027 0.657   0.000  15.659</code></pre>
 </div>
 <div id="sub-national-indicators" class="section level3">
 <h3>Sub-national indicators</h3>
 <p>you can calculate sub-national TFR by using the “Class” argument.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(TFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;tfr&quot;</span>,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>, <span class="dt">Class=</span><span class="st">&quot;v025&quot;</span>))</code></pre></div>
+<pre><code>## 
+##  The current function calculated TFR based on a reference period of 36 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
 <pre><code>##   Class   TFR    SE    N   WN  DEFT   RSE   LCI   UCI iterations
-## 1 rural 4.573 0.156 4462 5122 1.132 0.034 4.261 4.886         68
-## 2 urban 3.197 0.207 3980 3503 1.458 0.065 2.783 3.612         52</code></pre>
+## 1 rural 4.573 0.156 4462 5122 1.132 0.034 4.267  4.88         68
+## 2 urban 3.197 0.207 3980 3503 1.458 0.065 2.792 3.603         52</code></pre>
 </div>
 <div id="sub-national-indicators-for-ever-married-samples" class="section level3">
 <h3>Sub-national indicators for Ever-married samples</h3>
 <p>When <em>Class</em> is used, you might need to use the relevent <em>AWFact</em> as below; “awfactu” is used to produce indicators on the urban/rural level, “v025”.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(GFR &lt;-<span class="st"> </span><span class="kw">fert</span>(EMIR70,<span class="dt">Indicator=</span><span class="st">&quot;gfr&quot;</span>, <span class="dt">EverMW=</span><span class="st">&quot;YES&quot;</span>,<span class="dt">AWFact=</span><span class="st">&quot;awfactu&quot;</span>, <span class="dt">Class=</span><span class="st">&quot;v025&quot;</span>))</code></pre></div>
-<pre><code>## [[1]]
-##   Class    GFR    SE    N   WN  DEFT   RSE    LCI     UCI
-## 1 rural 97.851 4.127 7230 5661  1.25 0.042 89.597 106.105
-## 2 urban 63.971 7.362 2203  989 1.509 0.115 49.246  78.696</code></pre>
+<pre><code>## 
+##  The current function calculated GFR based on a reference period of 36 months 
+##  The reference period ended at the time of the interview, in Jun - Oct 2014</code></pre>
+<pre><code>##   Class    GFR    SE    N   WN  DEFT   RSE    LCI    UCI
+## 1 rural 97.851 4.127 7230 5661  1.25 0.042 89.762 105.94
+## 2 urban 63.971 7.362 2203  989 1.509 0.115 49.541 78.401</code></pre>
 </div>
 </div>
 </div>
@@ -186,8 +199,10 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <h3>childhood mortality rates:</h3>
 <p><em>chmort</em> can calculate five-year childhood mortality rates based on birth ADBR70 data</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70))</code></pre></div>
-<pre><code>## [[1]]
-##        Rate   N  WN
+<pre><code>## 
+##  The current function calculated Childhood Mortality Rates based on a reference period of 60 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##        Rate   N  WN
 ## NNMR  29.72 800 877
 ## PNNMR 24.04 782 862
 ## IMR   53.76 800 885
@@ -197,17 +212,21 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <h4>Jackknife SE for childhood mortality rates</h4>
 <p>in the previous example you can use the <em>JK</em> argument to estimate SE, RSE and CI. the SE is based on Jackknife variance estimation</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>))</code></pre></div>
-<pre><code>## [[1]]
-##        Rate    SE   N  WN DEFT  RSE   LCI   UCI iterations
-## NNMR  29.72  6.91 800 877 1.24 0.23 15.90 43.54         50
-## PNNMR 24.04  5.75 782 862 1.14 0.24 12.54 35.54         50
-## IMR   53.76  7.63 800 885 0.98 0.14 38.50 69.02         50
-## CMR   18.79  4.75 700 774 1.08 0.25  9.29 28.29         50
-## U5MR  71.53 10.22 738 809 1.31 0.14 51.09 91.97         50</code></pre>
-<p>The study period in the previous examples are the default 5 years previous to the survey. The ten-year children mortality rates can be calculated using the <em>Period</em> argument as follows</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">Period =</span> <span class="dv">10</span>))</code></pre></div>
-<pre><code>## [[1]]
-##        Rate    N   WN
+<pre><code>## 
+##  The current function calculated Childhood Mortality Rates based on a reference period of 60 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##        Rate    SE   N  WN DEFT  RSE   LCI   UCI iterations
+## NNMR  29.72  6.91 800 877 1.24 0.23 16.18 43.26         50
+## PNNMR 24.04  5.75 782 862 1.14 0.24 12.77 35.31         50
+## IMR   53.76  7.63 800 885 0.98 0.14 38.81 68.71         50
+## CMR   18.79  4.75 700 774 1.08 0.25  9.48 28.10         50
+## U5MR  71.53 10.22 738 809 1.31 0.14 51.50 91.56         50</code></pre>
+<p>The study period in the previous examples are the default 60 months (5 years) previous to the survey. The ten-year children mortality rates can be calculated using the <em>Period</em> argument as follows</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">Period =</span> <span class="dv">120</span>))</code></pre></div>
+<pre><code>## 
+##  The current function calculated Childhood Mortality Rates based on a reference period of 120 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##        Rate    N   WN
 ## NNMR  32.18 1476 1621
 ## PNNMR 24.79 1408 1553
 ## IMR   56.97 1452 1601

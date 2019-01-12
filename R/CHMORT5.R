@@ -6,6 +6,7 @@
 # 04/03/2018
 # Edited on 06/10/2018
 # Edited on 09/12/2018
+# Edited on 01/05/2019
 
 ### Child mortality rates
 CHMORT5 <- function(Data.Name, PeriodEnd = NULL) {
