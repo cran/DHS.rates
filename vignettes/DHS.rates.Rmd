@@ -161,4 +161,28 @@ The study period in the previous examples are the default 60 months (5 years) pr
 (chmort(ADBR70,Period = 120))
 ```
 
+In the previous examples the study period ends at the time of the survey. To change the ending date to September 2013, _PeriodEnd_ can be used as follows
+
+```{r }
+(chmort(ADBR70,Period = 120, PeriodEnd = "2013-09"))
+```
+
 Similar to _fert_, in _chmort_ the _Class_ can be used to produce domain level indicators.  
+
+# The _chmort_ function
+
+The _chmortp_ function calculates childhood childhood mortality probabilities for 8 age segments 0, 1-2, 3-5, 6-11, 12-23, 24-35, 36-47, and 48-59 months.
+
+The _chmortp_ function uses the DHS BR birth recode files
+
+## Example
+
+### childhood mortality probabilities:
+
+_chmortp_ can calculate five-year childhood mortality probabilities based on birth ADBR70 data
+
+```{r }
+(chmortp(ADBR70))
+```
+
+Similar to _chmort_, in _chmortp_ the _Period_ and _PeriodEnd_ can be used to change the calculation reference period and the _Class_ can be used to produce domain level indicators.  

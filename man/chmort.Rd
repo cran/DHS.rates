@@ -2,7 +2,7 @@
 % Please edit documentation in R/chmort.R
 \name{chmort}
 \alias{chmort}
-\title{Calculates childhood mortality rates based on the Demographic and Health Surveys (DHS).}
+\title{Calculates childhood mortality rates based on survey data.}
 \usage{
 chmort(Data.Name, JK = NULL, CL = NULL, Strata = NULL,
   Cluster = NULL, Weight = NULL, Date_of_interview = NULL,
@@ -10,39 +10,39 @@ chmort(Data.Name, JK = NULL, CL = NULL, Strata = NULL,
   Period = NULL, Class = NULL)
 }
 \arguments{
-\item{Data.Name}{DHS data birth files (BR).}
+\item{Data.Name}{The DHS births (BR) dataset or data from other survey with the same format.}
 
 \item{JK}{"Yes" to estimate Jackknife SE.}
 
-\item{CL}{The confidence level to calculate the Confidence Intervals; default if 95.}
+\item{CL}{Confidence level to calculate the Confidence Coefficient Z of the Confidence Intervals; default if 95.}
 
-\item{Strata}{The stratification variable name if other than "v022".}
+\item{Strata}{Stratification variable if other than "v022".}
 
-\item{Cluster}{The sampling clusters variable name if other than "v021".}
+\item{Cluster}{Sample cluster variable if other than "v021".}
 
-\item{Weight}{The sampling weight variable name if other than "v005".}
+\item{Weight}{Survey weight variable if other than "v005".}
 
-\item{Date_of_interview}{Date of Interview variable if other than "v008".}
+\item{Date_of_interview}{Date of Interview (CMC) variable if other than "v008".}
 
-\item{Date_of_birth}{Child date of birth variable if other than "b3".}
+\item{Date_of_birth}{Child date of birth (CMC) variable if other than "b3".}
 
-\item{Age_at_death}{Child age at death variable if other than "b7".}
+\item{Age_at_death}{Child age at death (in months) variable if other than "b7".}
 
-\item{PeriodEnd}{The end of the exposure period in YYYY-MM format; default is the time of the survey.}
+\item{PeriodEnd}{The end of the exposure period in YYYY-MM format; default is the date of the survey.}
 
-\item{Period}{The study period for mortality; default is 60 months (5 years).}
+\item{Period}{The study period for mortality in months; default is 60 months (5 years).}
 
 \item{Class}{Allow for domain level indicators.}
 }
 \value{
-Childhood mortality rates (NNMR, PNNMR, IMR, CMR and U5MR), and precision indicators (SE, RSE and CI).
+Childhood mortality rates (NNMR, PNNMR, IMR, CMR, and U5MR), and precision indicators (SE, RSE, and CI).
 }
 \description{
-\code{chmort} returns childhood mortality rates such as Neonatal Mortality Rate (NNMR),
+\code{chmort} returns childhood mortality rates such as the Neonatal Mortality Rate (NNMR),
 Post-neonatal Mortality Rate (PNNMR), Infant Mortality Rate (IMR), Child Mortality Rate (CMR),
 and Under-5 Mortality Rate (U5MR)
-\code{chmort} returns the Standrad Error (SE), the mortality exposure (N), the weighted exposure (WN),
-the Design Effect (DEFT), the Relative Standard Error (RSE) and the Confidence Interval (CI).
+\code{chmort} returns the Standrad Error (SE), mortality exposure (N), weighted exposure (WN),
+Design Effect (DEFT), Relative Standard Error (RSE), and Confidence Interval (CI).
 }
 \examples{
 # Calculate five-year children mortality rates based on ADBR70 data

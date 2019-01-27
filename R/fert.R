@@ -1,37 +1,37 @@
-#' Calculates fertility indicators based on the Demographic and Health Surveys (DHS).
+#' Calculates fertility indicators based on survey data.
 #'
-#' \code{fert} returns fertility indicators such as Total Fertility Rate (TFR),
-#' General Fertility Rate (GFR) and Age Specific Fertility Rate (ASFR)
-#' \code{fert} returns the Standrad Error (SE), the fertility exposure (N), the weighted exposure (WN),
-#' the Design Effect (DEFT), the Relative Standard Error (RSE) and the Confidence Interval (CI).
+#' \code{fert} returns fertility indicators such as the Total Fertility Rate (TFR),
+#' General Fertility Rate (GFR), and Age Specific Fertility Rate (ASFR)
+#' \code{fert} returns the Standrad Error (SE), fertility exposure (N), weighted exposure (WN),
+#' Design Effect (DEFT), Relative Standard Error (RSE), and Confidence Interval (CI).
 #'
 #' @author Mahmoud Elkasabi.
 #'
-#' @param Data.Name DHS data women files (IR).
+#' @param Data.Name The DHS women (IR) dataset or data from other survey with the same format.
 #'
 #' @param Indicator Type of indicator to be calculated ("tfr", "gfr", "asfr").
 #'
 #' @param JK "Yes" to estimate Jackknife SE for TFR.
 #'
-#' @param CL The confidence level to calculate the Confidence Intervals; default if 95.
+#' @param CL Confidence level to calculate the Confidence Coefficient Z of the Confidence Intervals; default if 95.
 #'
-#' @param Strata The stratification variable name if other than "v022".
+#' @param Strata Stratification variable if other than "v022".
 #'
-#' @param Cluster The sampling clusters variable name if other than "v021".
+#' @param Cluster Sample cluster variable if other than "v021".
 #'
-#' @param Weight The sampling weight variable name if other than "v005".
+#' @param Weight Survey weight variable if other than "v005".
 #'
-#' @param Date_of_interview Date of Interview variable if other than "v008".
+#' @param Date_of_interview Date of Interview (CMC) variable if other than "v008".
 #'
-#' @param Woman_DOB Woman date of birth variable if other than "v011".
+#' @param Woman_DOB Woman date of birth (CMC) variable if other than "v011".
 #'
 #' @param EverMW "Yes" for ever-married women data.
 #'
-#' @param AWFact The all-women-factor variable name; only for ever-married women data.
+#' @param AWFact All-women factor variable in case of EverMW = “Yes”.
 #'
-#' @param PeriodEnd The end of the exposure period in YYYY-MM format; default is the time of the survey.
+#' @param PeriodEnd The end of the exposure period in YYYY-MM format; default is the date of the survey.
 #'
-#' @param Period The study period for fertility; default is 36 months (3 years).
+#' @param Period The study period for fertility in months; default is 36 months (3 years).
 #'
 #' @param Class Allow for domain level indicators.
 #'
@@ -66,7 +66,7 @@
 #'  Class = "v025"
 #' )
 #'
-#' @return Fertility indicators (TFR, GFR or ASFR), and precision indicators (SE, DEFT, RSE and CI).
+#' @return Fertility indicators (TFR, GFR, or ASFR), and precision indicators (SE, DEFT, RSE, and CI).
 #'
 #' @export
 fert <- function(Data.Name, Indicator, JK = NULL, CL = NULL, Strata = NULL, Cluster = NULL, Weight = NULL,

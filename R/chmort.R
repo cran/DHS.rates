@@ -1,34 +1,34 @@
-#' Calculates childhood mortality rates based on the Demographic and Health Surveys (DHS).
+#' Calculates childhood mortality rates based on survey data.
 #'
-#' \code{chmort} returns childhood mortality rates such as Neonatal Mortality Rate (NNMR),
+#' \code{chmort} returns childhood mortality rates such as the Neonatal Mortality Rate (NNMR),
 #' Post-neonatal Mortality Rate (PNNMR), Infant Mortality Rate (IMR), Child Mortality Rate (CMR),
 #' and Under-5 Mortality Rate (U5MR)
-#' \code{chmort} returns the Standrad Error (SE), the mortality exposure (N), the weighted exposure (WN),
-#' the Design Effect (DEFT), the Relative Standard Error (RSE) and the Confidence Interval (CI).
+#' \code{chmort} returns the Standrad Error (SE), mortality exposure (N), weighted exposure (WN),
+#' Design Effect (DEFT), Relative Standard Error (RSE), and Confidence Interval (CI).
 #'
 #' @author Mahmoud Elkasabi.
 #'
-#' @param Data.Name DHS data birth files (BR).
+#' @param Data.Name The DHS births (BR) dataset or data from other survey with the same format.
 #'
 #' @param JK "Yes" to estimate Jackknife SE.
 #'
-#' @param CL The confidence level to calculate the Confidence Intervals; default if 95.
+#' @param CL Confidence level to calculate the Confidence Coefficient Z of the Confidence Intervals; default if 95.
 #'
-#' @param Strata The stratification variable name if other than "v022".
+#' @param Strata Stratification variable if other than "v022".
 #'
-#' @param Cluster The sampling clusters variable name if other than "v021".
+#' @param Cluster Sample cluster variable if other than "v021".
 #'
-#' @param Weight The sampling weight variable name if other than "v005".
+#' @param Weight Survey weight variable if other than "v005".
 #'
-#' @param Date_of_interview Date of Interview variable if other than "v008".
+#' @param Date_of_interview Date of Interview (CMC) variable if other than "v008".
 #'
-#' @param Date_of_birth Child date of birth variable if other than "b3".
+#' @param Date_of_birth Child date of birth (CMC) variable if other than "b3".
 #'
-#' @param Age_at_death Child age at death variable if other than "b7".
+#' @param Age_at_death Child age at death (in months) variable if other than "b7".
 #'
-#' @param PeriodEnd The end of the exposure period in YYYY-MM format; default is the time of the survey.
+#' @param PeriodEnd The end of the exposure period in YYYY-MM format; default is the date of the survey.
 #'
-#' @param Period The study period for mortality; default is 60 months (5 years).
+#' @param Period The study period for mortality in months; default is 60 months (5 years).
 #'
 #' @param Class Allow for domain level indicators.
 #'
@@ -60,7 +60,7 @@
 #'  PeriodEnd = "2011-06"
 #' )
 #'
-#' @return Childhood mortality rates (NNMR, PNNMR, IMR, CMR and U5MR), and precision indicators (SE, RSE and CI).
+#' @return Childhood mortality rates (NNMR, PNNMR, IMR, CMR, and U5MR), and precision indicators (SE, RSE, and CI).
 #'
 #' @export
 chmort <- function(Data.Name, JK = NULL, CL = NULL, Strata = NULL, Cluster = NULL, Weight = NULL,

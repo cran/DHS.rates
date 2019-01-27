@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mahmoud Elkasabi, Ph.D." />
 
-<meta name="date" content="2019-01-12" />
+<meta name="date" content="2019-01-27" />
 
 <title>Introduction to the DHS.rates package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to the DHS.rates package</h1>
 <h4 class="author"><em>Mahmoud Elkasabi, Ph.D.</em></h4>
-<h4 class="date"><em>2019-01-12</em></h4>
+<h4 class="date"><em>2019-01-27</em></h4>
 
 
 
@@ -232,8 +232,45 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 ## IMR   56.97 1452 1601
 ## CMR   24.25 1248 1369
 ## U5MR  79.83 1342 1466</code></pre>
+<p>In the previous examples the study period ends at the time of the survey. To change the ending date to September 2013, <em>PeriodEnd</em> can be used as follows</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">Period =</span> <span class="dv">120</span>, <span class="dt">PeriodEnd =</span> <span class="st">&quot;2013-09&quot;</span>))</code></pre></div>
+<pre><code>## 
+##  The current function calculated Childhood Mortality Rates based on a reference period of 120 months 
+##  The reference period ended in Sep 2013</code></pre>
+<pre><code>##        Rate    N   WN
+## NNMR  35.09 1400 1541
+## PNNMR 24.44 1337 1462
+## IMR   59.53 1384 1521
+## CMR   24.51 1172 1271
+## U5MR  82.59 1252 1369</code></pre>
 <p>Similar to <em>fert</em>, in <em>chmort</em> the <em>Class</em> can be used to produce domain level indicators.</p>
 </div>
+</div>
+</div>
+</div>
+<div id="the-chmort-function-1" class="section level1">
+<h1>The <em>chmort</em> function</h1>
+<p>The <em>chmortp</em> function calculates childhood childhood mortality probabilities for 8 age segments 0, 1-2, 3-5, 6-11, 12-23, 24-35, 36-47, and 48-59 months.</p>
+<p>The <em>chmortp</em> function uses the DHS BR birth recode files</p>
+<div id="example" class="section level2">
+<h2>Example</h2>
+<div id="childhood-mortality-probabilities" class="section level3">
+<h3>childhood mortality probabilities:</h3>
+<p><em>chmortp</em> can calculate five-year childhood mortality probabilities based on birth ADBR70 data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmortp</span>(ADBR70))</code></pre></div>
+<pre><code>## 
+##  The current function calculated the childhood component death probabilities based on a reference period of 60 months 
+##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+<pre><code>##       PROBABILITY W.DEATHS W.EXPOSURE DEATHS EXPOSURE
+## 0          0.0297    26.06     876.71   18.5    799.5
+## 1-2        0.0056     4.77     851.37    3.5    779.0
+## 3-5        0.0042     3.54     837.97    6.0    768.5
+## 6-11       0.0151    12.76     844.47   10.0    764.5
+## 12-23      0.0116     9.62     830.28    7.5    748.5
+## 24-35      0.0037     2.92     788.19    3.5    720.5
+## 36-47      0.0019     1.41     749.57    1.0    686.0
+## 48-59      0.0017     1.20     705.34    1.0    642.5</code></pre>
+<p>Similar to <em>chmort</em>, in <em>chmortp</em> the <em>Period</em> and <em>PeriodEnd</em> can be used to change the calculation reference period and the <em>Class</em> can be used to produce domain level indicators.</p>
 </div>
 </div>
 </div>

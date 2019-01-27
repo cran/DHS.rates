@@ -2,7 +2,7 @@
 % Please edit documentation in R/fert.R
 \name{fert}
 \alias{fert}
-\title{Calculates fertility indicators based on the Demographic and Health Surveys (DHS).}
+\title{Calculates fertility indicators based on survey data.}
 \usage{
 fert(Data.Name, Indicator, JK = NULL, CL = NULL, Strata = NULL,
   Cluster = NULL, Weight = NULL, Date_of_interview = NULL,
@@ -10,42 +10,42 @@ fert(Data.Name, Indicator, JK = NULL, CL = NULL, Strata = NULL,
   Period = NULL, Class = NULL)
 }
 \arguments{
-\item{Data.Name}{DHS data women files (IR).}
+\item{Data.Name}{The DHS women (IR) dataset or data from other survey with the same format.}
 
 \item{Indicator}{Type of indicator to be calculated ("tfr", "gfr", "asfr").}
 
 \item{JK}{"Yes" to estimate Jackknife SE for TFR.}
 
-\item{CL}{The confidence level to calculate the Confidence Intervals; default if 95.}
+\item{CL}{Confidence level to calculate the Confidence Coefficient Z of the Confidence Intervals; default if 95.}
 
-\item{Strata}{The stratification variable name if other than "v022".}
+\item{Strata}{Stratification variable if other than "v022".}
 
-\item{Cluster}{The sampling clusters variable name if other than "v021".}
+\item{Cluster}{Sample cluster variable if other than "v021".}
 
-\item{Weight}{The sampling weight variable name if other than "v005".}
+\item{Weight}{Survey weight variable if other than "v005".}
 
-\item{Date_of_interview}{Date of Interview variable if other than "v008".}
+\item{Date_of_interview}{Date of Interview (CMC) variable if other than "v008".}
 
-\item{Woman_DOB}{Woman date of birth variable if other than "v011".}
+\item{Woman_DOB}{Woman date of birth (CMC) variable if other than "v011".}
 
 \item{EverMW}{"Yes" for ever-married women data.}
 
-\item{AWFact}{The all-women-factor variable name; only for ever-married women data.}
+\item{AWFact}{All-women factor variable in case of EverMW = “Yes”.}
 
-\item{PeriodEnd}{The end of the exposure period in YYYY-MM format; default is the time of the survey.}
+\item{PeriodEnd}{The end of the exposure period in YYYY-MM format; default is the date of the survey.}
 
-\item{Period}{The study period for fertility; default is 36 months (3 years).}
+\item{Period}{The study period for fertility in months; default is 36 months (3 years).}
 
 \item{Class}{Allow for domain level indicators.}
 }
 \value{
-Fertility indicators (TFR, GFR or ASFR), and precision indicators (SE, DEFT, RSE and CI).
+Fertility indicators (TFR, GFR, or ASFR), and precision indicators (SE, DEFT, RSE, and CI).
 }
 \description{
-\code{fert} returns fertility indicators such as Total Fertility Rate (TFR),
-General Fertility Rate (GFR) and Age Specific Fertility Rate (ASFR)
-\code{fert} returns the Standrad Error (SE), the fertility exposure (N), the weighted exposure (WN),
-the Design Effect (DEFT), the Relative Standard Error (RSE) and the Confidence Interval (CI).
+\code{fert} returns fertility indicators such as the Total Fertility Rate (TFR),
+General Fertility Rate (GFR), and Age Specific Fertility Rate (ASFR)
+\code{fert} returns the Standrad Error (SE), fertility exposure (N), weighted exposure (WN),
+Design Effect (DEFT), Relative Standard Error (RSE), and Confidence Interval (CI).
 }
 \examples{
 # Calculate TFR and estimate Jackknife SE based on all women AWIR70 data
