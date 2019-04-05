@@ -12,7 +12,7 @@
 
 <meta name="author" content="Mahmoud Elkasabi, Ph.D." />
 
-<meta name="date" content="2019-01-27" />
+<meta name="date" content="2019-04-05" />
 
 <title>Introduction to the DHS.rates package</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">Introduction to the DHS.rates package</h1>
 <h4 class="author"><em>Mahmoud Elkasabi, Ph.D.</em></h4>
-<h4 class="date"><em>2019-01-27</em></h4>
+<h4 class="date"><em>2019-04-05</em></h4>
 
 
 
@@ -117,7 +117,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(TFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;tfr&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated TFR based on a reference period of 36 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2014.25</code></pre>
 <pre><code>##        TFR    N   WN
 ## [1,] 4.011 8442 8625</code></pre>
 <div id="jackknife-se-for-tfr" class="section level4">
@@ -126,7 +127,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(TFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;tfr&quot;</span>,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated TFR based on a reference period of 36 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2014.25</code></pre>
 <pre><code>##        TFR    SE    N   WN  DEFT   RSE   LCI   UCI iterations
 ## [1,] 4.011 0.142 8442 8625 1.207 0.035 3.732 4.289        120</code></pre>
 </div>
@@ -138,7 +140,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(GFR &lt;-<span class="st"> </span><span class="kw">fert</span>(EMIR70,<span class="dt">Indicator=</span><span class="st">&quot;gfr&quot;</span>,<span class="dt">EverMW=</span><span class="st">&quot;YES&quot;</span>,<span class="dt">AWFact=</span><span class="st">&quot;awfactt&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated GFR based on a reference period of 36 months 
-##  The reference period ended at the time of the interview, in Jun - Oct 2014</code></pre>
+##  The reference period ended at the time of the interview, in 2014.67 OR Jun - Oct 2014 
+##  The average reference period is 2013.17</code></pre>
 <pre><code>##         GFR   SE    N   WN  DEFT   RSE   LCI     UCI
 ## [1,] 91.983 4.19 9472 6710 1.497 0.046 83.77 100.196</code></pre>
 </div>
@@ -148,7 +151,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(ASFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;asfr&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated ASFR based on a reference period of 36 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2014.25</code></pre>
 <pre><code>##     AGE    ASFR     SE    N   WN  DEFT   RSE     LCI     UCI
 ## 0 15-19 111.102  7.689 1789 1829 1.091 0.069  96.032 126.173
 ## 1 20-24 207.647 10.357 1554 1566 1.110 0.050 187.347 227.947
@@ -164,7 +168,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(TFR &lt;-<span class="st"> </span><span class="kw">fert</span>(AWIR70,<span class="dt">Indicator=</span><span class="st">&quot;tfr&quot;</span>,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>, <span class="dt">Class=</span><span class="st">&quot;v025&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated TFR based on a reference period of 36 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2014.25</code></pre>
 <pre><code>##   Class   TFR    SE    N   WN  DEFT   RSE   LCI   UCI iterations
 ## 1 rural 4.573 0.156 4462 5122 1.132 0.034 4.267  4.88         68
 ## 2 urban 3.197 0.207 3980 3503 1.458 0.065 2.792 3.603         52</code></pre>
@@ -175,7 +180,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(GFR &lt;-<span class="st"> </span><span class="kw">fert</span>(EMIR70,<span class="dt">Indicator=</span><span class="st">&quot;gfr&quot;</span>, <span class="dt">EverMW=</span><span class="st">&quot;YES&quot;</span>,<span class="dt">AWFact=</span><span class="st">&quot;awfactu&quot;</span>, <span class="dt">Class=</span><span class="st">&quot;v025&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated GFR based on a reference period of 36 months 
-##  The reference period ended at the time of the interview, in Jun - Oct 2014</code></pre>
+##  The reference period ended at the time of the interview, in 2014.67 OR Jun - Oct 2014 
+##  The average reference period is 2013.17</code></pre>
 <pre><code>##   Class    GFR    SE    N   WN  DEFT   RSE    LCI    UCI
 ## 1 rural 97.851 4.127 7230 5661  1.25 0.042 89.762 105.94
 ## 2 urban 63.971 7.362 2203  989 1.509 0.115 49.541 78.401</code></pre>
@@ -201,7 +207,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 60 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2013.25</code></pre>
 <pre><code>##        Rate   N  WN
 ## NNMR  29.72 800 877
 ## PNNMR 24.04 782 862
@@ -214,7 +221,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">JK=</span><span class="st">&quot;Yes&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 60 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2013.25</code></pre>
 <pre><code>##        Rate    SE   N  WN DEFT  RSE   LCI   UCI iterations
 ## NNMR  29.72  6.91 800 877 1.24 0.23 16.18 43.26         50
 ## PNNMR 24.04  5.75 782 862 1.14 0.24 12.77 35.31         50
@@ -225,7 +233,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">Period =</span> <span class="dv">120</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 120 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2010.75</code></pre>
 <pre><code>##        Rate    N   WN
 ## NNMR  32.18 1476 1621
 ## PNNMR 24.79 1408 1553
@@ -236,7 +245,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmort</span>(ADBR70,<span class="dt">Period =</span> <span class="dv">120</span>, <span class="dt">PeriodEnd =</span> <span class="st">&quot;2013-09&quot;</span>))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 120 months 
-##  The reference period ended in Sep 2013</code></pre>
+##  The reference period ended in 2013.75 OR Sep 2013 
+##  The average reference period is 2008.75</code></pre>
 <pre><code>##        Rate    N   WN
 ## NNMR  35.09 1400 1541
 ## PNNMR 24.44 1337 1462
@@ -260,7 +270,8 @@ XXIR70 &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(XXIR7
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">(<span class="kw">chmortp</span>(ADBR70))</code></pre></div>
 <pre><code>## 
 ##  The current function calculated the childhood component death probabilities based on a reference period of 60 months 
-##  The reference period ended at the time of the interview, in Jul - Dec 2015</code></pre>
+##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
+##  The average reference period is 2013.25</code></pre>
 <pre><code>##       PROBABILITY W.DEATHS W.EXPOSURE DEATHS EXPOSURE
 ## 0          0.0297    26.06     876.71   18.5    799.5
 ## 1-2        0.0056     4.77     851.37    3.5    779.0
