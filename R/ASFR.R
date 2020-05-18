@@ -4,6 +4,7 @@
 # Edited on 09/12/2018
 # Edited on 01/05/2019
 # Edited on 04/02/2019
+# Edited on 05/18/2020
 
 ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL) {
@@ -102,7 +103,8 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
     ####### For Class Indicators; #############################################
 
     Data.Name[[Class]] <- haven::as_factor(Data.Name[[Class]])
-    Data.Name$DomID <- c(as.factor(Data.Name[[Class]]))
+    #Data.Name$DomID <- c(as.factor(Data.Name[[Class]]))
+    Data.Name$DomID  <- c(as.numeric(Data.Name[[Class]]))
 
     if (is.null(EverMW)) {
       Data.Name$allwoment <- 1
@@ -122,7 +124,7 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                                       "DEFT", "RSE", "LCI", "UCI"))
     RESULTS <- as.data.frame(RESULTS)
 
-    for (j in 1:(max(Dat$DomID))) {
+    for (j in 1:(max(as.numeric(Dat$DomID)))) {
       DatD <- Dat[Dat$DomID == j, ]
 
       dstrat <- survey::svydesign(id = ~ v021, strata = ~ v022, weights = ~ rweight, data = DatD)

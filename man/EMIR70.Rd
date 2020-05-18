@@ -4,7 +4,8 @@
 \name{EMIR70}
 \alias{EMIR70}
 \title{DHS Ever-Married Women dataset}
-\format{A data frame with 3014 rows and 30 variables:
+\format{
+A data frame with 3014 rows and 30 variables:
 \describe{
   \item{v005}{Women individual sample weight}
   \item{v007}{Year of interview}
@@ -36,7 +37,8 @@
   \item{b3_18}{Date of birth (CMC) birth 18}
   \item{b3_19}{Date of birth (CMC) birth 19}
   \item{b3_20}{Date of birth (CMC) birth 20}
-}}
+}
+}
 \source{
 \url{https://dhsprogram.com/data/available-datasets.cfm}
 }

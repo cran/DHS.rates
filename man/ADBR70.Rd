@@ -4,7 +4,8 @@
 \name{ADBR70}
 \alias{ADBR70}
 \title{DHS Births dataset}
-\format{A data frame with 2753 rows and 8 variables:
+\format{
+A data frame with 2753 rows and 8 variables:
 \describe{
   \item{v005}{Women individual sample weight}
   \item{v007}{Year of interview}
@@ -14,7 +15,8 @@
   \item{v025}{Type of residence urban/rural}
   \item{b3}{Date of birth (CMC)}
   \item{b7}{Age at death}
-}}
+}
+}
 \source{
 \url{https://dhsprogram.com/data/available-datasets.cfm}
 }

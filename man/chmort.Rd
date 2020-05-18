@@ -4,10 +4,20 @@
 \alias{chmort}
 \title{Calculates childhood mortality rates based on survey data.}
 \usage{
-chmort(Data.Name, JK = NULL, CL = NULL, Strata = NULL,
-  Cluster = NULL, Weight = NULL, Date_of_interview = NULL,
-  Date_of_birth = NULL, Age_at_death = NULL, PeriodEnd = NULL,
-  Period = NULL, Class = NULL)
+chmort(
+  Data.Name,
+  JK = NULL,
+  CL = NULL,
+  Strata = NULL,
+  Cluster = NULL,
+  Weight = NULL,
+  Date_of_interview = NULL,
+  Date_of_birth = NULL,
+  Age_at_death = NULL,
+  PeriodEnd = NULL,
+  Period = NULL,
+  Class = NULL
+)
 }
 \arguments{
 \item{Data.Name}{The DHS births (BR) dataset or data from other survey with the same format.}

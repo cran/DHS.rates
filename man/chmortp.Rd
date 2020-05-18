@@ -4,9 +4,16 @@
 \alias{chmortp}
 \title{Calculates the childhood component death probabilities based on survey data.}
 \usage{
-chmortp(Data.Name, Weight = NULL, Date_of_interview = NULL,
-  Date_of_birth = NULL, Age_at_death = NULL, PeriodEnd = NULL,
-  Period = NULL, Class = NULL)
+chmortp(
+  Data.Name,
+  Weight = NULL,
+  Date_of_interview = NULL,
+  Date_of_birth = NULL,
+  Age_at_death = NULL,
+  PeriodEnd = NULL,
+  Period = NULL,
+  Class = NULL
+)
 }
 \arguments{
 \item{Data.Name}{The DHS births (BR) dataset or data from other survey with the same format.}

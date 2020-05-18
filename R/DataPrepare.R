@@ -4,6 +4,7 @@
 # Edited on 06/10/2018
 # Edited on 09/12/2018
 # Edited on 01/05/2019
+# Edited on 05/17/2020
 
 DataPrepare <- function(Dat, PeriodEnd = NULL, Period = NULL)
 {
@@ -21,7 +22,7 @@ DataPrepare <- function(Dat, PeriodEnd = NULL, Period = NULL)
               paste("v022"), paste("allwoment"), paste("rweight"),
               paste("b3_0", 1:9, sep = ""), paste("b3_", 10:20, sep = ""))
 
-  def <- reshape::melt(Dat[myvars], id = c("ID", "v021", "v005", "v008", "v011",
+  def <- reshape::melt(as.data.frame(Dat[myvars]), id = c("ID", "v021", "v005", "v008", "v011",
                                            "v022", "rweight", "allwoment"))
 
   names(def)[names(def) == c("value")] <- c("B3")

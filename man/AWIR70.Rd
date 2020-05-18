@@ -4,7 +4,8 @@
 \name{AWIR70}
 \alias{AWIR70}
 \title{DHS All Women dataset}
-\format{A data frame with 3024 rows and 27 variables:
+\format{
+A data frame with 3024 rows and 27 variables:
 \describe{
   \item{v005}{Women individual sample weight}
   \item{v007}{Year of interview}
@@ -33,7 +34,8 @@
   \item{b3_18}{Date of birth (CMC) birth 18}
   \item{b3_19}{Date of birth (CMC) birth 19}
   \item{b3_20}{Date of birth (CMC) birth 20}
-}}
+}
+}
 \source{
 \url{https://dhsprogram.com/data/available-datasets.cfm}
 }

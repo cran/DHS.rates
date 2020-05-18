@@ -145,7 +145,7 @@ chmortp <- function(Data.Name, Weight = NULL, Date_of_interview = NULL,
         dimnames(RESULTS) <- list(NULL, c("Class", "PROBABILITY", "W.DEATHS", "W.EXPOSURE", "DEATHS", "EXPOSURE") )
         RESULTS <- as.data.frame(RESULTS)
 
-        for (j in 1:(max(chmortdat$DomID))) {
+        for (j in 1:(max(as.numeric(chmortdat$DomID)))) {
 
           DatD = as.data.frame(chmortdat[chmortdat$DomID == j, ])
           DatD[[Class]] = haven::as_factor(DatD[[Class]])

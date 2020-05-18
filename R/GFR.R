@@ -4,6 +4,7 @@
 # Edited on 09/12/2018
 # Edited on 01/05/2019
 # Edited on 04/02/2019
+# Edited on 05/18/2020
 
 GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL) {
@@ -89,7 +90,8 @@ GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
   #######For Class Indicators; ###################################################################
 
     Data.Name[[Class]] <- haven::as_factor(Data.Name[[Class]])
-    Data.Name$DomID  <- c(as.factor(Data.Name[[Class]]))
+    #Data.Name$DomID  <- c(as.factor(Data.Name[[Class]]))
+    Data.Name$DomID  <- c(as.numeric(Data.Name[[Class]]))
 
     if (is.null(EverMW)){Data.Name$allwoment = 1}
       else if (is.null(AWFact)) {Data.Name$allwoment = Data.Name$awfactt / 100}
@@ -101,11 +103,11 @@ GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
     Data.class <- Data.Name[, c("ID", "DomID", Class)]
     Dat <- merge(BirthEx, Data.class, by = "ID", all.x = TRUE)
 
-    RESULTS <- matrix(0, nrow = max(Dat$DomID), ncol = 9)
+    RESULTS <- matrix(0, nrow = max(as.numeric(Dat$DomID)), ncol = 9)
     dimnames(RESULTS) <- list(NULL, c("Class", "GFR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI"))
     RESULTS <- as.data.frame(RESULTS)
 
-    for (j in 1:(max(Dat$DomID))) {
+    for (j in 1:(max(as.numeric(Dat$DomID)))) {
 
       DatD = Dat[Dat$DomID == j, ]
 

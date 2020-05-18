@@ -4,10 +4,22 @@
 \alias{fert}
 \title{Calculates fertility indicators based on survey data.}
 \usage{
-fert(Data.Name, Indicator, JK = NULL, CL = NULL, Strata = NULL,
-  Cluster = NULL, Weight = NULL, Date_of_interview = NULL,
-  Woman_DOB = NULL, EverMW = NULL, AWFact = NULL, PeriodEnd = NULL,
-  Period = NULL, Class = NULL)
+fert(
+  Data.Name,
+  Indicator,
+  JK = NULL,
+  CL = NULL,
+  Strata = NULL,
+  Cluster = NULL,
+  Weight = NULL,
+  Date_of_interview = NULL,
+  Woman_DOB = NULL,
+  EverMW = NULL,
+  AWFact = NULL,
+  PeriodEnd = NULL,
+  Period = NULL,
+  Class = NULL
+)
 }
 \arguments{
 \item{Data.Name}{The DHS women (IR) dataset or data from other survey with the same format.}
