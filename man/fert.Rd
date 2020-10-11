@@ -56,7 +56,7 @@ Fertility indicators (TFR, GFR, or ASFR), and precision indicators (SE, DEFT, RS
 \description{
 \code{fert} returns fertility indicators such as the Total Fertility Rate (TFR),
 General Fertility Rate (GFR), and Age Specific Fertility Rate (ASFR)
-\code{fert} returns the Standrad Error (SE), fertility exposure (N), weighted exposure (WN),
+\code{fert} returns the Standard Error (SE), fertility exposure (N), weighted exposure (WN),
 Design Effect (DEFT), Relative Standard Error (RSE), and Confidence Interval (CI).
 }
 \examples{

@@ -5,6 +5,7 @@
 # Edited on 01/05/2019
 # Edited on 04/02/2019
 # Edited on 05/17/2020
+# Edited on 10/06/2020
 
 TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL)
@@ -67,6 +68,7 @@ TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
     if (is.null(JK)){PSU <- 0} else {PSU <- max(as.numeric(BirthEx$id))}
 
     #ASFR-TFR
+    options(survey.lonely.psu = "adjust")
     dstrat<-survey::svydesign(id = ~v021, strata = ~v022, weights = ~rweight, data = BirthEx)
     ASFR  = (survey::svyby(~birth, by = ~age5, denominator = ~exposure,
                            design = dstrat, survey::svyratio))[, 2]
@@ -157,6 +159,7 @@ TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
       dimnames(JKres) <- list(NULL, c("TFRj"))
 
       #ASFR-TFR
+      options(survey.lonely.psu = "adjust")
       dstrat<-survey::svydesign(id = ~v021, strata = ~v022, weights = ~rweight, data = DatD)
       ASFR  = (survey::svyby(~birth, by = ~age5, denominator = ~exposure,
                              design = dstrat, survey::svyratio))[, 2]

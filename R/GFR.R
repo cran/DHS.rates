@@ -5,6 +5,7 @@
 # Edited on 01/05/2019
 # Edited on 04/02/2019
 # Edited on 05/18/2020
+# Edited on 10/06/2020
 
 GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL) {
@@ -68,6 +69,7 @@ GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
     BirthEx$exposureg = BirthEx$allwoment * BirthEx$exposureg
 
+    options(survey.lonely.psu = "adjust")
     dstrat<-survey::svydesign(id = ~v021, strata = ~v022, weights = ~rweight, data = BirthEx)
     GFR   <- (survey::svyratio(~birth, ~exposureg, dstrat, deff = "replace"))$ratio[1, 1]
     SE    <- survey::SE(survey::svyratio(~birth, ~exposureg, dstrat, deff = "replace"))
@@ -111,6 +113,7 @@ GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
 
       DatD = Dat[Dat$DomID == j, ]
 
+      options(survey.lonely.psu = "adjust")
       dstrat<-survey::svydesign(id = ~v021, strata = ~v022, weights = ~rweight, data = DatD)
       GFR   <- (survey::svyratio(~birth, ~exposureg, dstrat, deff = "replace"))$ratio[1, 1]
       SE    <- survey::SE(survey::svyratio(~birth, ~exposureg, dstrat, deff = "replace"))

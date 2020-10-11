@@ -1,14 +1,17 @@
 Package: DHS.rates
 Type: Package
 Title: Calculates Demographic Indicators
-Version: 0.7.1
-Date: 2020-05-18
+Version: 0.8.0
+Date: 2020-10-11
 Author: Mahmoud Elkasabi
 Maintainer: Mahmoud Elkasabi <mahmoud.elkasabi@icf.com>
 Description: Calculates key indicators such as fertility rates (Total Fertility Rate (TFR), General Fertility Rate (GFR), 
   and Age Specific Fertility Rate (ASFR)) using Demographic and Health Survey (DHS) women/individual data, 
-  and childhood mortality probabilities and rates such as Neonatal Mortality Rate (NNMR), Post-neonatal Mortality Rate (PNNMR), 
-  Infant Mortality Rate (IMR), Child Mortality Rate (CMR), and Under-five Mortality Rate (U5MR). 
+  childhood mortality probabilities and rates such as Neonatal Mortality Rate (NNMR), Post-neonatal Mortality Rate (PNNMR), 
+  Infant Mortality Rate (IMR), Child Mortality Rate (CMR), and Under-five Mortality Rate (U5MR), and adult mortality indicators 
+  such as the Age Specific Mortality Rate (ASMR), Age Adjusted Mortality Rate (AAMR), Age Specific Maternal Mortality Rate (ASMMR),
+  Age Adjusted Maternal Mortality Rate (AAMMR), Age Specific Pregnancy Related Mortality Rate (ASPRMR), 
+  Age Adjusted Pregnancy Related Mortality Rate (AAPRMR), Maternal Mortality Ratio (MMR) and Pregnancy Related Mortality Ratio (PRMR).  
   In addition to the indicators, the 'DHS.rates' package estimates sampling errors indicators such as Standard Error (SE), 
   Design Effect (DEFT), Relative Standard Error (RSE) and Confidence Interval (CI). 
   The package is developed according to the DHS methodology of calculating the fertility indicators and 
@@ -20,11 +23,12 @@ License: GPL-2
 Encoding: UTF-8
 LazyData: true
 Depends: R(>= 3.4.0)
-Imports: reshape, survey, stats, haven, matrixStats, crayon
-RoxygenNote: 7.1.0
+Imports: reshape, survey, stats, haven, matrixStats, dplyr, rlang,
+        crayon
+RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2020-05-18 16:49:49 UTC; 31672
+Packaged: 2020-10-11 19:25:51 UTC; 31672
 Repository: CRAN
-Date/Publication: 2020-05-18 17:00:03 UTC
+Date/Publication: 2020-10-11 23:30:06 UTC

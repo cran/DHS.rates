@@ -3,7 +3,7 @@
 #' \code{chmort} returns childhood mortality rates such as the Neonatal Mortality Rate (NNMR),
 #' Post-neonatal Mortality Rate (PNNMR), Infant Mortality Rate (IMR), Child Mortality Rate (CMR),
 #' and Under-5 Mortality Rate (U5MR)
-#' \code{chmort} returns the Standrad Error (SE), mortality exposure (N), weighted exposure (WN),
+#' \code{chmort} returns the Standard Error (SE), mortality exposure (N), weighted exposure (WN),
 #' Design Effect (DEFT), Relative Standard Error (RSE), and Confidence Interval (CI).
 #'
 #' @author Mahmoud Elkasabi.

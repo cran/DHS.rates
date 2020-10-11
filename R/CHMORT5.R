@@ -8,6 +8,7 @@
 # Edited on 09/12/2018
 # Edited on 01/05/2019
 # Edited on 01/13/2019 -- added CHMORTp
+# Edited on 10/06/2020
 
 ### Child mortality rates
 CHMORT5 <- function(Data.Name, PeriodEnd = NULL) {
@@ -233,6 +234,7 @@ DEFT <- function(Data.Name) {
 
         segdata$death[is.na(segdata$b7)] <- 0
 
+        options(survey.lonely.psu = "adjust")
         dstrat<-survey::svydesign(id = ~v021, strata = ~v022, weights = ~rweight, data = segdata)
 
         Deft[names(BirthNg)[i]] <- sqrt(survey::deff(survey::svyratio(~death, ~exposure, dstrat, deff = "replace")))

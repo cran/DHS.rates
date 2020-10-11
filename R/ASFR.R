@@ -5,6 +5,7 @@
 # Edited on 01/05/2019
 # Edited on 04/02/2019
 # Edited on 05/18/2020
+# Edited on 10/06/2020
 
 ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL) {
@@ -69,6 +70,7 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
     BirthEx$exposure <- BirthEx$allwoment * BirthEx$exposure
 
+    options(survey.lonely.psu = "adjust")
     dstrat <- survey::svydesign(id = ~ v021, strata = ~ v022, weights = ~ rweight, data = BirthEx)
 
     AGE <- c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49")
@@ -127,6 +129,7 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
     for (j in 1:(max(as.numeric(Dat$DomID)))) {
       DatD <- Dat[Dat$DomID == j, ]
 
+      options(survey.lonely.psu = "adjust")
       dstrat <- survey::svydesign(id = ~ v021, strata = ~ v022, weights = ~ rweight, data = DatD)
 
       AGE <- c("15-19", "20-24", "25-29", "30-34", "35-39", "40-44", "45-49")
