@@ -6,6 +6,7 @@
 # Edited on 04/02/2019
 # Edited on 05/18/2020
 # Edited on 10/06/2020
+# Edited on 05/23/2021
 
 GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL) {
@@ -67,6 +68,7 @@ GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
 
     if (is.null(EverMW)){Data.Name$allwoment = 1} else {Data.Name$allwoment = Data.Name$awfactt / 100}
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
+    BirthEx <- BirthEx[BirthEx$age5 >= 0 & BirthEx$age5 <= 6, ]
     BirthEx$exposureg = BirthEx$allwoment * BirthEx$exposureg
 
     options(survey.lonely.psu = "adjust")
@@ -100,6 +102,7 @@ GFR <- function (Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
         else {Data.Name$allwoment = Data.Name[[AWFact]] / 100}
 
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
+    BirthEx <- BirthEx[BirthEx$age5 >= 0 & BirthEx$age5 <= 6, ]
     BirthEx$exposureg = BirthEx$allwoment * BirthEx$exposureg
 
     Data.class <- Data.Name[, c("ID", "DomID", Class)]

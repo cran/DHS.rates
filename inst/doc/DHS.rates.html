@@ -12,13 +12,45 @@
 
 <meta name="author" content="Mahmoud Elkasabi, Ph.D." />
 
-<meta name="date" content="2020-10-11" />
+<meta name="date" content="2021-06-17" />
 
 <title>Introduction to the DHS.rates package</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
 
 
-<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
 <style type="text/css" data-origin="pandoc">
 code.sourceCode > span { display: inline-block; line-height: 1.25; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -106,6 +138,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   }
 })();
 </script>
+
 
 
 
@@ -303,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Introduction to the DHS.rates package</h1>
 <h4 class="author">Mahmoud Elkasabi, Ph.D.</h4>
-<h4 class="date">2020-10-11</h4>
+<h4 class="date">2021-06-17</h4>
 
 
 
@@ -442,7 +475,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 60 months 
 ##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
 ##  The average reference period is 2013.25</code></pre>
-<pre><code>##        Rate   N  WN
+<pre><code>##           R   N  WN
 ## NNMR  29.72 800 877
 ## PNNMR 24.04 782 862
 ## IMR   53.76 800 885
@@ -456,7 +489,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 60 months 
 ##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
 ##  The average reference period is 2013.25</code></pre>
-<pre><code>##        Rate    SE   N  WN DEFT  RSE   LCI   UCI iterations
+<pre><code>##           R    SE   N  WN DEFT  RSE   LCI   UCI iterations
 ## NNMR  29.72  6.91 800 877 1.24 0.23 16.18 43.26         50
 ## PNNMR 24.04  5.75 782 862 1.13 0.24 12.77 35.31         50
 ## IMR   53.76  7.63 800 885 0.97 0.14 38.81 68.71         50
@@ -468,7 +501,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 120 months 
 ##  The reference period ended at the time of the interview, in 2015.75 OR Jul - Dec 2015 
 ##  The average reference period is 2010.75</code></pre>
-<pre><code>##        Rate    N   WN
+<pre><code>##           R    N   WN
 ## NNMR  32.18 1476 1621
 ## PNNMR 24.79 1408 1553
 ## IMR   56.97 1452 1601
@@ -480,7 +513,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 ##  The current function calculated Childhood Mortality Rates based on a reference period of 120 months 
 ##  The reference period ended in 2013.75 OR Sep 2013 
 ##  The average reference period is 2008.75</code></pre>
-<pre><code>##        Rate    N   WN
+<pre><code>##           R    N   WN
 ## NNMR  35.09 1400 1541
 ## PNNMR 24.44 1337 1462
 ## IMR   59.53 1384 1521

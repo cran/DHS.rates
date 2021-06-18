@@ -198,7 +198,7 @@ chmort <- function(Data.Name, JK = NULL, CL = NULL, Strata = NULL, Cluster = NUL
     if (is.null(JK)){
 
       RESULTcmr <- matrix(0, nrow = 5, ncol = 3)
-      dimnames(RESULTcmr) <- list(c("NNMR", "PNNMR", "IMR", "CMR", "U5MR" ),c("Rate","N","WN"))
+      dimnames(RESULTcmr) <- list(c("NNMR", "PNNMR", "IMR", "CMR", "U5MR" ),c("R","N","WN"))
       for (i in 1:(nrow(RESULTcmr))) {
         RESULTcmr[i,1] = round(CHMORT[i],2)
         RESULTcmr[i,2] = round(NBIRTH[i],0)
@@ -216,7 +216,7 @@ chmort <- function(Data.Name, JK = NULL, CL = NULL, Strata = NULL, Cluster = NUL
 
       RESULTcmr <- matrix(0, nrow = 5, ncol = 9)
       dimnames(RESULTcmr) <- list(c("NNMR", "PNNMR", "IMR", "CMR", "U5MR"),
-                                  c("Rate", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations"))
+                                  c("R", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations"))
       for (i in 1:(nrow(RESULTcmr))) {
         RESULTcmr[i, 1] = round(CHMORT[i],2)
         RESULTcmr[i, 2] = round(sqrt(sum(((PSU * CHMORT[i] - (PSU-1) * JKres[, i])-CHMORT[i])^2)/(PSU * (PSU-1))),2)

@@ -6,6 +6,7 @@
 # Edited on 04/02/2019
 # Edited on 05/18/2020
 # Edited on 10/06/2020
+# Edited on 06/17/2021
 
 ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL) {
@@ -68,6 +69,7 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
       Data.Name$allwoment <- Data.Name$awfactt / 100
     }
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
+    BirthEx <- BirthEx[BirthEx$age5 >= 0 & BirthEx$age5 <= 6, ]
     BirthEx$exposure <- BirthEx$allwoment * BirthEx$exposure
 
     options(survey.lonely.psu = "adjust")
@@ -94,7 +96,7 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
     LCI[LCI <= 0] = 0
     UCI <- ASFR + (Z * SE)
 
-    RESULTS <- cbind.data.frame(AGE, round(ASFR, 3), round(SE, 3), round(N, 0), round(WN, 0),
+    RESULTS <- cbind.data.frame(AGE[1:length(ASFR)], round(ASFR, 3), round(SE, 3), round(N, 0), round(WN, 0),
                                 round(DEFT, 3), round(RSE, 3), round(LCI, 3), round(UCI, 3))
 
     names(RESULTS) <- c("AGE", "ASFR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI")
@@ -116,12 +118,13 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
       Data.Name$allwoment <- Data.Name[[AWFact]] / 100
     }
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
+    BirthEx <- BirthEx[BirthEx$age5 >= 0 & BirthEx$age5 <= 6, ]
     BirthEx$exposure <- BirthEx$allwoment * BirthEx$exposure
 
     Data.class <- Data.Name[, c("ID", "DomID", Class)]
     Dat <- merge(BirthEx, Data.class, by = "ID", all.x = TRUE)
 
-    RESULTS <- matrix(0, 1, ncol = 10)
+    RESULTS <- matrix(, 1, ncol = 10)
     dimnames(RESULTS) <- list(NULL, c("Class", "AGE", "ASFR", "SE", "N", "WN",
                                       "DEFT", "RSE", "LCI", "UCI"))
     RESULTS <- as.data.frame(RESULTS)
@@ -154,14 +157,14 @@ ASFR <- function(Data.Name, CL = NULL, EverMW = NULL, AWFact = NULL,
       LCI[LCI <= 0] = 0
       UCI <- ASFR + (Z * SE)
 
-      RESULTS0 <- cbind.data.frame(attributes(Dat[[Class]])$levels[[j]], AGE, round(ASFR, 3),
+      RESULTS0 <- cbind.data.frame(attributes(Dat[[Class]])$levels[[j]], AGE[1:length(ASFR)], round(ASFR, 3),
                                    round(SE, 3), round(N, 0), round(WN, 0), round(DEFT, 3),
                                    round(RSE, 3), round(LCI, 3), round(UCI, 3))
 
       names(RESULTS0) <- c("Class", "AGE", "ASFR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI")
       RESULTS <- rbind(RESULTS, RESULTS0)
     }
-
+    RESULTS <- RESULTS[- 1, ]
     list(RESULTS)
   }
 }

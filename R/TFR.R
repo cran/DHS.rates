@@ -6,6 +6,7 @@
 # Edited on 04/02/2019
 # Edited on 05/17/2020
 # Edited on 10/06/2020
+# Edited on 06/17/2021
 
 TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
                  PeriodEnd = NULL, Period = NULL, Class = NULL)
@@ -63,6 +64,7 @@ TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
 
     if (is.null(EverMW)){Data.Name$allwoment = 1} else {Data.Name$allwoment = Data.Name$awfactt/100}
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
+    BirthEx <- BirthEx[BirthEx$age5 >= 0 & BirthEx$age5 <= 6, ]
     BirthEx$exposure = BirthEx$allwoment * BirthEx$exposure
 
     if (is.null(JK)){PSU <- 0} else {PSU <- max(as.numeric(BirthEx$id))}
@@ -129,6 +131,7 @@ TFR <- function (Data.Name, JK = NULL, CL = NULL, EverMW = NULL, AWFact = NULL,
       Data.Name$allwoment = Data.Name[[AWFact]] / 100}
 
     BirthEx <- DataPrepare(Data.Name, PeriodEnd, Period)
+    BirthEx <- BirthEx[BirthEx$age5 >= 0 & BirthEx$age5 <= 6, ]
     BirthEx$exposure = BirthEx$allwoment * BirthEx$exposure
 
     Data.class <- Data.Name[, c("ID", "DomID", Class)]
