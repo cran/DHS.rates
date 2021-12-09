@@ -1,6 +1,6 @@
 # AAPRMR function: calculate AAPRMR
 # Mahmoud Elkasabi
-# 09/23/2020
+# 12/08/2021
 
 AAPRMR <- function (Data.Name, JK = NULL, CL = NULL,
                    PeriodEnd = NULL, Period = NULL)
@@ -76,18 +76,23 @@ AAPRMR <- function (Data.Name, JK = NULL, CL = NULL,
                           design = dsub, survey::svyratio))[, 2]
   aaprmr <- sum(asprmr[1:7] * AGEDIST)
 
+  PMDFtotal <- 100*(survey::svyratio(~ mm_death, denominator = ~ death,
+                           design = dsub))$ratio[, 1]
+
   N     =  (dplyr::group_by(DeathEx, sex) %>% summarise(x = sum(exposure)))$x[1]
   WN    = (survey::svyby(~ exposure, by = ~ sex, design = dsub, survey::svytotal))$exposure[1]
   AAPRMR_DEFT = sqrt(survey::svyby(~ mm_death, by = ~ sex, denominator = ~ exposure,
                                   design = dsub, deff = "replace", survey::svyratio)$DEff)[1]
+
+  deaths <- WN*(aaprmr/1000)
 
   JKres <- matrix(0, nrow = PSU, ncol = 1)
   dimnames(JKres) <- list(NULL, c("AAPRMRj_f"))
 
   if (is.null(JK)){
 
-    RESULTS <- cbind.data.frame(round(aaprmr,3), round(N, 0), round(WN, 0), row.names = NULL)
-    names(RESULTS) <- c("AAPRMR", "N", "WN")
+    RESULTS <- cbind.data.frame(round(PMDFtotal, 2), round(deaths, 0), round(WN, 0), round(aaprmr,3), round(N, 0), row.names = NULL)
+    names(RESULTS) <- c("Maternal_Deaths%", "Deaths","Exposure_years", "AAPRMR", "N")
     list(RESULTS)
 
   } else {
@@ -114,8 +119,8 @@ AAPRMR <- function (Data.Name, JK = NULL, CL = NULL,
     UCI = aaprmr + (Z * SE)
     PSUs = PSU
 
-    RESULTS <- cbind.data.frame(round(aaprmr,3), round(SE,3), round(N, 0), round(WN, 0), round(AAPRMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
-    names(RESULTS) <- c("AAPRMR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations")
+    RESULTS <- cbind.data.frame(round(PMDFtotal, 2), round(deaths, 0), round(WN, 0), round(aaprmr,3), round(SE,3), round(N, 0), round(AAPRMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
+    names(RESULTS) <- c("Maternal_Deaths%","Deaths","Exposure_years", "AAPRMR", "SE", "N", "DEFT", "RSE", "LCI", "UCI", "iterations")
     list(RESULTS)
 
   }

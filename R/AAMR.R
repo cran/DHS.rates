@@ -1,6 +1,6 @@
 # AAMR function: calculate AAMR
 # Mahmoud Elkasabi
-# 09/23/2020
+# 12/08/2021
 
 AAMR <- function (Data.Name, JK = NULL, CL = NULL,
                   PeriodEnd = NULL, Period = NULL)
@@ -73,6 +73,7 @@ AAMR <- function (Data.Name, JK = NULL, CL = NULL,
 
   N     =  (dplyr::group_by(DeathEx, sex) %>% summarise(x = sum(exposure)))$x
   WN    = (survey::svyby(~ exposure, by = ~ sex, design = dstrat, survey::svytotal))$exposure
+  deaths <- WN*(aamr/1000)
   AAMR_DEFT = sqrt(survey::svyby(~ death, by = ~ sex, denominator = ~ exposure,
                                  design = dstrat, deff = "replace", survey::svyratio)$DEff)
   SEX <- c("FEMALES","MALES")
@@ -82,8 +83,8 @@ AAMR <- function (Data.Name, JK = NULL, CL = NULL,
 
   if (is.null(JK)){
 
-    RESULTS <- cbind.data.frame(SEX, aamr, round(N, 0), round(WN, 0), row.names = NULL)
-    names(RESULTS) <- c("SEX", "AAMR", "N", "WN")
+    RESULTS <- cbind.data.frame(SEX, round(deaths, 0), round(WN, 0), aamr, round(N, 0), row.names = NULL)
+    names(RESULTS) <- c("SEX", "Deaths", "Exposure_years", "AAMR", "N")
     list(RESULTS)
 
   } else {
@@ -113,8 +114,8 @@ AAMR <- function (Data.Name, JK = NULL, CL = NULL,
     UCI = aamr + (Z * SE)
     PSUs = c(PSU,PSU)
 
-    RESULTS <- cbind.data.frame(SEX, round(aamr,3), round(SE,3), round(N, 0), round(WN, 0), round(AAMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
-    names(RESULTS) <- c("SEX","AAMR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations")
+    RESULTS <- cbind.data.frame(SEX, round(deaths, 0), round(WN, 0), round(aamr,3), round(SE,3), round(N, 0), round(AAMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
+    names(RESULTS) <- c("SEX","Deaths", "Exposure_years", "AAMR", "SE", "N", "DEFT", "RSE", "LCI", "UCI", "iterations")
     list(RESULTS)
 
   }

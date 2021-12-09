@@ -1,6 +1,6 @@
 # PRMR function: calculate PRMR
 # Mahmoud Elkasabi
-# 09/23/2020
+# 12/08/2021
 
 PRMR <- function (Data.Name, JK = NULL, CL = NULL,
                  PeriodEnd = NULL, Period = NULL)
@@ -92,8 +92,8 @@ PRMR <- function (Data.Name, JK = NULL, CL = NULL,
 
   if (is.null(JK)){
 
-    RESULTS <- cbind.data.frame(round(prmr, 0), round(N, 0), round(WN, 0), row.names = NULL)
-    names(RESULTS) <- c("PRMR", "N", "WN")
+    RESULTS <- cbind.data.frame(round(WN, 0),round(prmr, 0), round(N, 0),  row.names = NULL)
+    names(RESULTS) <- c("Exposure_years","PRMR", "N")
     list(RESULTS)
 
   } else {
@@ -123,8 +123,8 @@ PRMR <- function (Data.Name, JK = NULL, CL = NULL,
     UCI = prmr + (Z * SE)
     PSUs = PSU
 
-    RESULTS <- cbind.data.frame(round(prmr,0), round(SE,3), round(N, 0), round(WN, 0), round(PRMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
-    names(RESULTS) <- c("PRMR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations")
+    RESULTS <- cbind.data.frame(round(WN, 0), round(prmr,0), round(SE,3), round(N, 0), round(PRMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
+    names(RESULTS) <- c("Exposure_years","PRMR", "SE", "N", "DEFT", "RSE", "LCI", "UCI", "iterations")
     list(RESULTS)
   }
 }

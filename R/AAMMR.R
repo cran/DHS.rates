@@ -92,18 +92,23 @@ AAMMR <- function (Data.Name, JK = NULL, CL = NULL,
                           design = dsub, survey::svyratio))[, 2]
   aammr <- sum(asmmr[1:7] * AGEDIST)
 
+  PMDFtotal <- 100*(survey::svyratio(~ mm_death, denominator = ~ death,
+                           design = dsub))$ratio[, 1]
+
   N     =  (dplyr::group_by(DeathEx, sex) %>% summarise(x = sum(exposure)))$x[1]
   WN    = (survey::svyby(~ exposure, by = ~ sex, design = dsub, survey::svytotal))$exposure[1]
   AAMMR_DEFT = sqrt(survey::svyby(~ mm_death, by = ~ sex, denominator = ~ exposure,
                                   design = dsub, deff = "replace", survey::svyratio)$DEff)[1]
+
+  deaths <- WN*(aammr/1000)
 
   JKres <- matrix(0, nrow = PSU, ncol = 1)
   dimnames(JKres) <- list(NULL, c("AAMMRj_f"))
 
   if (is.null(JK)){
 
-    RESULTS <- cbind.data.frame(round(aammr,3), round(N, 0), round(WN, 0), row.names = NULL)
-    names(RESULTS) <- c("AAMMR", "N", "WN")
+    RESULTS <- cbind.data.frame(round(PMDFtotal, 2), round(deaths, 0), round(WN, 0), round(aammr,3), round(N, 0),  row.names = NULL)
+    names(RESULTS) <- c("Maternal_Deaths%","Deaths","Exposure_years", "AAMMR", "N")
     list(RESULTS)
 
   } else {
@@ -130,8 +135,8 @@ AAMMR <- function (Data.Name, JK = NULL, CL = NULL,
     UCI = aammr + (Z * SE)
     PSUs = PSU
 
-    RESULTS <- cbind.data.frame(round(aammr,3), round(SE,3), round(N, 0), round(WN, 0), round(AAMMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
-    names(RESULTS) <- c("AAMMR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI", "iterations")
+    RESULTS <- cbind.data.frame(round(PMDFtotal, 2), round(deaths, 0), round(WN, 0), round(aammr,3), round(SE,3), round(N, 0), round(AAMMR_DEFT,3), round(RSE,3), round(LCI,3), round(UCI,3), PSUs, row.names = NULL)
+    names(RESULTS) <- c("Maternal_Deaths%", "Deaths","Exposure_years","AAMMR", "SE", "N", "DEFT", "RSE", "LCI", "UCI", "iterations")
     list(RESULTS)
   }
 }

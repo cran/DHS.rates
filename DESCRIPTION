@@ -1,8 +1,8 @@
 Package: DHS.rates
 Type: Package
 Title: Calculates Demographic Indicators
-Version: 0.9.0
-Date: 2021-06-17
+Version: 0.9.1
+Date: 2021-12-09
 Author: Mahmoud Elkasabi
 Maintainer: Mahmoud Elkasabi <mahmoud.elkasabi@icf.com>
 Description: Calculates key indicators such as fertility rates (Total Fertility Rate (TFR), General Fertility Rate (GFR), 
@@ -29,6 +29,6 @@ RoxygenNote: 7.1.1
 VignetteBuilder: knitr
 Suggests: knitr, rmarkdown
 NeedsCompilation: no
-Packaged: 2021-06-17 19:35:07 UTC; 31672
+Packaged: 2021-12-09 18:47:11 UTC; 31672
 Repository: CRAN
-Date/Publication: 2021-06-18 08:20:11 UTC
+Date/Publication: 2021-12-09 19:00:02 UTC

@@ -1,6 +1,6 @@
 # ASMR function: calculate ASMR
 # Mahmoud Elkasabi
-# 09/22/2020
+# 12/08/2021
 
 ASMR <- function(Data.Name, CL = NULL,
                  PeriodEnd = NULL, Period = NULL) {
@@ -65,15 +65,17 @@ ASMR <- function(Data.Name, CL = NULL,
 
     SEX <- c(rep("FEMALES",7),rep("MALES",7))
 
+    WN <- (survey::svyby(~ exposure, by = ~ agegrp+sex, design = dstrat, survey::svytotal))$exposure
+
     asmr <- (survey::svyby(~ death, by = ~ agegrp+sex, denominator = ~ exposure,
                            design = dstrat, survey::svyratio))[, 3]
+
+    deaths <- WN*(asmr/1000)
 
     SE <- (survey::svyby(~ death, by = ~ agegrp+sex, denominator = ~ exposure,
                          design = dstrat, survey::svyratio))[, 4]
 
     N <- stats::aggregate(DeathEx$exposure, list(DeathEx$agegrp, DeathEx$sex), sum)$x
-
-    WN <- (survey::svyby(~ exposure, by = ~ agegrp+sex, design = dstrat, survey::svytotal))$exposure
 
     DEFT <- sqrt(survey::svyby(~ death, by = ~ agegrp+sex, denominator = ~ exposure,
                                design = dstrat, deff = "replace", survey::svyratio)$DEff)
@@ -84,10 +86,10 @@ ASMR <- function(Data.Name, CL = NULL,
     LCI[LCI <= 0] = 0
     UCI <- asmr + (Z * SE)
 
-    RESULTS <- cbind.data.frame(AGE, SEX, round(asmr, 3), round(SE, 3), round(N, 0), round(WN, 0),
+    RESULTS <- cbind.data.frame(AGE, SEX, round(deaths, 0), round(WN, 0), round(asmr, 3), round(SE, 3), round(N, 0),
                                 round(DEFT, 3), round(RSE, 3), round(LCI, 3), round(UCI, 3), row.names = NULL)
 
-    names(RESULTS) <- c("AGE", "SEX", "ASMR", "SE", "N", "WN", "DEFT", "RSE", "LCI", "UCI")
+    names(RESULTS) <- c("AGE", "SEX", "Deaths","Exposure_years", "ASMR", "SE", "N",  "DEFT", "RSE", "LCI", "UCI")
     list(RESULTS)
 
 }
