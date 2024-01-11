@@ -1,4 +1,4 @@
-cd407a4adb59b178a9bb6257eacc44eb *DESCRIPTION
+05b03976230eca8e6b56f62af26957c7 *DESCRIPTION
 93b83c12c5bf0c58dabf488031a150a3 *NAMESPACE
 c07b7991cc6bdfe192c6e0503fa804d3 *R/AAGFR.R
 a2ba1ea5d864ca4b96422a28df59c813 *R/AAMMR.R
@@ -17,17 +17,17 @@ dd3e550a53660df931a4742eba1c4a21 *R/MMR.R
 5987c4ba291a9984f378ed30fdd5a05a *R/PRMR.R
 8df57af7323fc0ce6aef441b8ff9e725 *R/TFR.R
 3a6d0be1454faefc15b27bb84bc666fe *R/admort.R
-0829caace2154589d3b403934696c966 *R/chmort.R
-ab6c7cf4f0fe13ad40f9d2992e5cf52f *R/chmortp.R
+7272833baab8307b00ee6b2fdbf5899d *R/chmort.R
+f71d637b4098ab60f1a232808d796bd3 *R/chmortp.R
 e1bfd668797215042621405fd1ddc57c *R/data.R
 5bc8d4efb04e4a95baa4cd07c1945b68 *R/fert.R
-09ffec5b90c60db57cef6cebe6985f01 *build/vignette.rds
+f1a8c1dc17cfacb80fd00d69b2413e0c *build/vignette.rds
 32c7863f1d153f8f125cc534b9aee351 *data/ADBR70.rda
 2d2a33253d68d06a89e76da339981100 *data/AWIR70.rda
 bf2fcf24bc1b359d8b76b2954c175d56 *data/EMIR70.rda
 3e8e14e713a3c33f72df7dc7f9155015 *inst/doc/DHS.rates.R
 00fa992c583674fcb5f440652b41109f *inst/doc/DHS.rates.Rmd
-ddad6e5513870ef627622f4168231636 *inst/doc/DHS.rates.html
+1a690dff0b825d17e2dbf697754f7fe0 *inst/doc/DHS.rates.html
 7b15d2e66a5e8d323308e6ec66b1c1d4 *man/ADBR70.Rd
 a64af9be3e5455be03e7d72c1dae5ba5 *man/AWIR70.Rd
 c31adf408f0d58a40eee69bdf5743aa7 *man/EMIR70.Rd

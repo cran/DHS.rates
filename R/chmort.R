@@ -239,7 +239,9 @@ chmort <- function(Data.Name, JK = NULL, CL = NULL, Strata = NULL, Cluster = NUL
     chmortdat<- Data.ready[, c("v021", "v022", "rweight", "v008", "b3", "b7", "tu", "tl",
                                "periodend", Class)]
 
-    chmortdat$DomID  <- c(as.factor(chmortdat[[Class]]))
+    chmortdat[[Class]] <- haven::as_factor(chmortdat[[Class]])
+    #chmortdat$DomID  <- c(as.factor(chmortdat[[Class]]))
+    chmortdat$DomID  <- c(as.numeric(chmortdat[[Class]]))
 
     RESULTS <- matrix(0, 0, ncol = 4)
     dimnames(RESULTS) <- list(NULL, c("Class", "R", "N", "WN") )
@@ -264,7 +266,7 @@ chmort <- function(Data.Name, JK = NULL, CL = NULL, Strata = NULL, Cluster = NUL
       if (is.null(JK)){
 
         RESULTS0 <- cbind.data.frame(attributes(DatD[[Class]])$levels[[j]],
-                                     round(CHMORT, 2), round(NBIRTH,0), round(NBIRTHW,0))
+                                    round(CHMORT, 2), round(NBIRTH,0), round(NBIRTHW,0))
 
         names(RESULTS0) <- c("Class", "R", "N", "WN")
         RESULTS = rbind(RESULTS, RESULTS0)

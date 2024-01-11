@@ -139,7 +139,9 @@ chmortp <- function(Data.Name, Weight = NULL, Date_of_interview = NULL,
 
         chmortdat<- Data.ready[, c("rweight", "v008", "b3", "b7", "tu", "tl", "periodend", Class)]
 
-        chmortdat$DomID  <- c(as.factor(chmortdat[[Class]]))
+        chmortdat[[Class]] <- haven::as_factor(chmortdat[[Class]])
+        #chmortdat$DomID  <- c(as.factor(chmortdat[[Class]]))
+        chmortdat$DomID  <- c(as.numeric(chmortdat[[Class]]))
 
         RESULTS <- matrix(0, 0, ncol = 6)
         dimnames(RESULTS) <- list(NULL, c("Class", "PROBABILITY", "W.DEATHS", "W.EXPOSURE", "DEATHS", "EXPOSURE") )
